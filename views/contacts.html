@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clientes</title>
+    <!-- TAB ICON -->
+    <link rel="icon" href="../assets/images/logo-dorado.png">
+    <!-- BOOTSTRAP 5.2.3 -->
+    <link rel="stylesheet" href="../assets/libs/bootstrap-5.2.3/bootstrap.min.css">
+    <!-- FONT AWESOME -->
+    <link rel="stylesheet" href="../assets/libs/fontawesome/css/all.min.css">
+    <!-- OWL CAROUSEL -->
+    <link rel="stylesheet" href="../assets/libs/owl-carousel-2.3.4/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="../assets/libs/owl-carousel-2.3.4/css/owl.theme.default.min.css">
+    <!-- MAIN CSS -->
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <!-- PWA META TAGS -->
+    <meta name="theme-color" content="#1A1A1A">
+    <meta name="MobileOptimized" content="width">
+    <meta name="HandheldFriendly" content="true">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#1A1A1A">
+    <link rel="shortcut icon" type="image/png" href="../img/64x64.png">
+    <link rel="apple-touch-icon" href="../img/64x64.png">
+    <link rel="apple-touch-startup-image" href="../img/64x64.png">
+    <link rel="manifest" href="../manifest.json">
+</head>
+
+<body>
+    <div id="app" v-cloak>
+        <!-- HEADER WITH LOGO AND TITLE -->
+        <header id="header" class="header-logo-title p-1">
+            <div class="header-logo">
+                <img src="../assets/images/logo-dorado-margen.png" alt="">
+            </div>
+            <div class="header-title">
+                <h2 class="text-center fs-26 fw-700 m-0">Clientes</h2>
+            </div>
+            <div class="header-account me-2">
+                <a href="profile.html" class="d-flex justify-content-center align-items-center position-relative">
+                    <img style="overflow: hidden;" :src="`${datos.profile_photo_url ?? datos.userNameURL}`"
+                        @error="profileImageError" alt="">
+                    <span v-if="datos.notifications.pending_notifications"
+                        class="position-absolute translate-middle badge rounded-pill fw-700 fs-10 bgcolor-primary txtcolor-black">
+                        {{datos.notifications.pending_notifications}}
+                    </span>
+                </a>
+            </div>
+        </header>
+
+        <!-- MAIN CONTENT -->
+        <main class="container-fluid p-0">
+            <!-- SEARCH BAR -->
+            <div class="search-bar p-4">
+                <form action="" method="" class="d-flex">
+                    <button type="submit">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </button>
+                    <input @input="inputChange" type="text" name="" class="px-1" placeholder="Buscar cliente">
+                </form>
+                <button type="button" onclick="" class="search-bar-filter">
+                    <img src="../assets/images/icono-filtros.png" alt="">
+                </button>
+            </div><!-- end search bar -->
+            <!-- CONTACTS ADDED RECENTLY -->
+            <div class="contacts-added-recently mb-3" v-if="!filter.length">
+                <!-- TITLE -->
+                <h1 class="ff-raleway fs-22 fw-700 txtcolor-black px-4 mb-2">Añadidos recientemente</h1>
+
+                <div class="mx-4 d-flex justify-content-between">
+                    <a :href="`profile-client.html?id=${recentClient.id}`"
+                        class="owl-clients-profile d-flex flex-column justify-content-center"
+                        v-for="recentClient in recentClients">
+                        <img :src="recentClient.profile_photo_url ? recentClient.profile_photo_url : recentClient.userNameURL"
+                            class="box-shadow-25" alt="">
+                        <p class="text-center text-dark mt-2">{{`${recentClient.name.split(' ')[0]}`}}</p>
+                    </a>
+                </div>
+                <!-- end carousel -->
+            </div>
+            <!-- end div contacts added recently -->
+            <!-- CONTACTS LIST -->
+            <!-- <div class="contacts-list px-4 pb-4"> -->
+            <div class="contacts-list pb-4">
+                <!-- TITLE -->
+                <h1 class="ff-raleway fs-22 fw-700 txtcolor-black px-4 mb-2">Mis clientes</h1>
+                <!-- 
+                    NOTA:
+                        EN CASO DE NO PODER VISUALIZAR ADECUADAMENTE EL BOTÓN DE BORRAR EN WEB
+                        DEBIDO AL SCROLL, PONER EL NAVEGADOR EN SIMULACIÓN DE DISPOSITIVO O 
+                        COMENTAR LAS LÍNEAS 1496, 1497 y 1506 DE "mains.css". 
+                 -->
+                <div class="row m-0">
+                    <!-- CARD CUSTOMER (CONTACT) -->
+                    <div class="col-12 col-md-6 col-lg-6 col-xl-4 col-xxl-3 p-0 mb-1"
+                        v-for="client in clients.filter(e => e.name.toLowerCase().includes(filter.trim().toLowerCase()))">
+                        <div class="card-customer-elements drag-scroll">
+                            <!-- CARD -->
+                            <div class="card-customer box-shadow-25 mx-4 px-4">
+                                <div class="card-customer-profile-pic me-3">
+                                    <img :src="client.profile_photo_url ?? client.userNameURL" class="box-shadow-50"
+                                        alt="">
+                                </div>
+                                <div class="card-customer-content">
+                                    <div class="d-flex justify-content-between">
+                                        <h2 class="ff-raleway fs-16 fw-700 txtcolor-black m-0"> {{client.name}} </h2>
+                                        <div class="d-flex align-items-start">
+                                            <a :href="`profile-client.html?id=${client.id}`"
+                                                class="button-see-details ms-2"><img
+                                                    src="../assets/images/icono-flecha-diagonal.png" alt=""></a>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex align-items-center mb-1">
+                                        <i class="fa-solid fa-location-dot fs-16 h-100 me-1"></i>
+                                        <h2 class="ff-raleway fs-14 fw-500 txtcolor-black m-0">{{client.position}}</h2>
+                                    </div>
+                                    <div class="card-customer-contact-buttons">
+                                        <a :href='`tel: ${client.phone_number}`' class="fs-14 fw-700">
+                                            Llamar <i class="fa-solid fa-phone fs-16 ms-2"></i>
+                                        </a>
+                                        <a :href="`sms:${client.phone_number}`" class="fs-14 fw-700">
+                                            Contactar <i class="fa-solid fa-comment-dots fs-16 ms-2"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div><!-- end card customer -->
+                            <!-- BUTTON DELETE CONTACT -->
+                            <button @click="deleteClient({client: client})" type="button"
+                                class="button-delete-contact me-4">
+                                <i class="fa-solid fa-trash-can fs-20"></i>
+                            </button>
+                        </div><!-- end customer scroll -->
+                    </div><!-- end col -->
+                    <!-- end col -->
+                </div><!-- end row -->
+
+            </div>
+            <!-- ADD BUTTON -->
+            <a href="contacts-add.html" class="add-button box-shadow-25">
+                <i class="fa-solid fa-plus"></i>
+            </a>
+        </main>
+
+        <!-- NAVBAR -->
+        <footer id="navbar">
+            <!-- SCHEDULE -->
+            <a href="notifications.html">
+                <img src="../assets/images/navbar-blanco-notificaciones.png" alt="">
+            </a>
+            <!-- CONTACTS -->
+            <a href="contacts.html">
+                <img src="../assets/images/navbar-dorado-contactos.png" alt="">
+            </a>
+            <!-- HOME -->
+            <a href="homepage.html">
+                <img src="../assets/images/navbar-blanco-inicio.png" alt="">
+            </a>
+            <!-- CALENDAR -->
+            <a href="calendar.html">
+                <img src="../assets/images/navbar-blanco-calendario.png" alt="">
+            </a>
+            <!-- PROFILE -->
+            <a href="profile.html">
+                <img src="../assets/images/navbar-blanco-perfil.png" alt="">
+            </a>
+        </footer>
+    </div>
+
+    <!-- JAVASCRIPT -->
+    <!-- Service worker PWA -->
+    <script src="../sw.js"></script>
+    <script src="../script.js"></script>
+    <script src="../assets/js/jquery-3.6.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+    <script src="../assets/libs/bootstrap-5.2.3/bootstrap.min.js"></script>
+    <!-- <script src="../assets/libs/owl-carousel-2.3.4/js/owl.carousel.min.js"></script>
+    <script src="../assets/js/owl-carousels.js"></script> -->
+    <!-- Enlazar vuejs -->
+    <!-- Axios -->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+    <script>
+        const { createApp } = Vue
+        const data = null;
+        const error = null;
+        // e.name.toUpperCase().includes('ga'.toUpperCase()))
+        createApp({
+            data() {
+                return {
+                    datos: JSON.parse(window.localStorage.usuario),
+                    clients: [],
+                    recentClients: {},
+                    filter: ""
+                }
+            },
+            methods: {
+                inputChange(event) {
+                    this.filter = event.target.value;
+                },
+                // SWEETALERT
+                error(text) {
+                    Swal.fire({
+                        type: "error",
+                        text: text,
+                        confirmButtonText: "Intentar de nuevo"
+                    })
+                },
+                success(text) {
+                    Swal.fire({
+                        type: "success",
+                        text: text,
+                        confirmButtonText: "Aceptar",
+                    });
+                },
+
+                profileImageError(event) {
+                    event.target.src = this.datos.urlAvatar;
+                },
+                getConfig({ url = String, data = FormData, method = String }) {
+                    return {
+                        method: method,
+                        url: url,
+                        data: data,
+                        headers: {
+                            'Authorization': `Bearer ${this.datos.token}`,
+                        },
+                    };
+                },
+                deleteClient({ client = Object }) {
+                    let data = new FormData();
+                    data.append('client_id', client.id);
+                    data.append('referred_id', '');
+
+                    axios(this.getConfig({
+                        url: 'https://rv.devcobaja.com/api/clients/update',
+                        method: 'post',
+                        data: data
+                    })).then(e => {
+                        this.loadClients();
+                        this.success('Se ha eliminado el cliente.')
+                    })
+                        .catch(err => this.error("Algo mal sucedió :( Intente de nuevo."))
+                },
+                loadClients() {
+                    axios(this.getConfig({ url: 'https://rv.devcobaja.com/api/agents/clients', method: 'get' }))
+                        .then(({ data }) => {
+                            // Esto es para la url de ui avatars de los clientes, se inserta en el objeto de 
+                            data.data.map(user => {
+                                let uiAvatarURL = new URLSearchParams(user.name.toUpperCase());
+                                user['userNameURL'] = `https://ui-avatars.com/api/?name=${uiAvatarURL}&background=1d1818&color=d9ac6c&size=128`
+                            });
+
+                            this.clients = data.data
+                            this.recentClients = this.clients.slice(this.clients.length - 5)
+                        })
+                        .catch((error) => window.location.href="error-connection.html");
+                },
+
+            },
+            mounted() {
+                this.loadClients();
+            },
+            updated() {
+                console.log(this.clients)
+            }
+        }).mount('#app')
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,89 @@
+{
+    "name": "RV Bienes Raíces",
+    "short_name": "RVBienesRaíces",
+    "background_color": "#1A1A1A",
+    "theme_color": "#212121",
+    "orientation": "portrait-primary",
+    "display": "standalone",
+    "start_url": "./index.html",
+    "scope": "./",
+    "icons": [
+        
+        {
+          "src": "./img/32x32.png",
+          "sizes": "32x32",
+          "type": "image/png"
+        },
+        {
+          "src": "./img/36x36.png",
+          "sizes": "36x36",
+          "type": "image/png"
+        },
+        {
+          "src": "./img/48x48.png",
+          "sizes": "48x48",
+          "type": "image/png"
+        },
+        {
+          "src": "./img/64x64.png",
+          "sizes": "64x64",
+          "type": "image/png"
+        },
+        {
+          "src": "./img/72x72.png",
+          "sizes": "72x72",
+          "type": "image/png"
+        },
+        {
+          "src": "./img/96x96.png",
+          "sizes": "96x96",
+          "type": "image/png"
+        },
+        {
+          "src": "./img/120x120.png",
+          "sizes": "120x120",
+          "type": "image/png"
+        },
+        {
+          "src": "./img/128x128.png",
+          "sizes": "128x128",
+          "type": "image/png"
+        },
+        {
+          "src": "./img/144x144.png",
+          "sizes": "144x144",
+          "type": "image/png"
+        },
+        {
+          "src": "./img/152x152.png",
+          "sizes": "152x152",
+          "type": "image/png"
+        },
+        {
+          "src": "./img/180x180.png",
+          "sizes": "180x180",
+          "type": "image/png"
+        },
+        {
+          "src": "./img/192x192.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        },
+        {
+          "src": "./img/256x256.png",
+          "sizes": "256x256",
+          "type": "image/png"
+        },
+        {
+          "src": "./img/384x384.png",
+          "sizes": "384x384",
+          "type": "image/png"
+        },
+        {
+          "src": "./img/512x512.png",
+          "sizes": "512x512",
+          "type": "image/png"
+        }
+        
+      ]
+}

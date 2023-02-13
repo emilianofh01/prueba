@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalles de cita</title>
+    <!-- TAB ICON -->
+    <link rel="icon" href="../assets/images/logo-dorado.png">
+    <!-- BOOTSTRAP 5.2.3 -->
+    <link rel="stylesheet" href="../assets/libs/bootstrap-5.2.3/bootstrap.min.css">
+    <!-- FONT AWESOME -->
+    <link rel="stylesheet" href="../assets/libs/fontawesome/css/all.min.css">
+    <!-- OWL CAROUSEL -->
+    <link rel="stylesheet" href="../assets/libs/owl-carousel-2.3.4/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="../assets/libs/owl-carousel-2.3.4/css/owl.theme.default.min.css">
+    <!-- MAIN CSS -->
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <!-- PWA META TAGS -->
+    <meta name="theme-color" content="#1A1A1A">
+    <meta name="MobileOptimized" content="width">
+    <meta name="HandheldFriendly" content="true">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#1A1A1A">
+    <link rel="shortcut icon" type="image/png" href="../img/64x64.png">
+    <link rel="apple-touch-icon" href="../img/64x64.png">
+    <link rel="apple-touch-startup-image" href="../img/64x64.png">
+    <link rel="manifest" href="../manifest.json">
+</head>
+<body>
+    <!-- HEADER WITH RETURN AND TITLE -->
+    <header id="header" class="p-1">
+        <div class="header-return ms-2">
+            <a href="schedule.html" class="fs-24">
+                <i class="fa-solid fa-arrow-left"></i>
+            </a>
+        </div>
+        <div class="header-title">
+            <h2 class="text-center fs-22 fw-700 m-0">Detalles de cita</h2>
+        </div>
+        <div class="header-account me-2">
+            <a href="profile.html" class="d-flex justify-content-center align-items-center position-relative">
+                <img src="../assets/images/profile-pic.png" alt="">
+                <span class="position-absolute translate-middle badge rounded-pill fw-700 fs-10 bgcolor-primary txtcolor-black">
+                    3
+                </span>
+            </a>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main class="container-fluid p-0 m-0">
+        <div class="schedule-details">
+            <!-- PROPERTY PREVIEW -->
+            <div class="schedule-details-preview">
+                <img src="../assets/images/home-demo7.png" alt="">
+                <div class="schedule-details-preview-overlay">
+                    <div class="d-flex justify-content-end align-items-center mt-2">
+                        <a href="schedule-add.html"><i class="fa-solid fa-pencil"></i></a>
+                        <button type="button" onclick="removeDate()" class="ms-2"><i class="fa-solid fa-trash-can"></i></button>
+                    </div>
+                </div>
+            </div>
+            <!-- DETAILS -->
+            <div class="schedule-details-content px-4 pb-4">
+                <!-- HEADER (TITLE AND SUBTITLE) -->
+                <div class="schedule-details-header mb-4">
+                    <h1 class="fs-26 fw-700">Cita con propietario</h1>
+                    <h2 class="fs-20 fw-400">Casa Miramar</h2>
+                </div>
+                <!-- DATE AND HOUR -->
+                <div class="schedule-details-date mb-4">
+                    <h2 class="fs-16 fw-600 mb-2">Fecha y hora</h2>
+                    <h3 class="fs-14 fw-400 m-0">5 enero 2023 - <span class="fst-italic">10:30 AM</span></h3>
+                </div>
+                <!-- ATTENDEES -->
+                <div class="schedule-details-attendees mb-4">
+                    <h2 class="fs-16 fw-600 mb-2">Asistentes</h2>
+                    <!-- ATTENDEE ROW -->
+                    <div class="schedule-details-attendees-row mb-2">
+                        <a href="profile-client.html" class="schedule-details-attendees-person">
+                            <img src="../assets/images/profile-person1.png" class="me-2" alt="">
+                            <h3 class="fs-14 fw-400 m-0">María Cruz Pérez</h3>
+                        </a>
+                        <div class="schedule-details-attendees-contact">
+                            <a href="tel:526123480678" class="me-2"><i class="fa-solid fa-phone"></i></a>
+                            <a href="sms:526123480678"><i class="fa-solid fa-comment-dots"></i></a>
+                        </div>
+                    </div><!-- end attendee row -->
+                </div>
+                <!-- LOCATION (MAP) -->
+                <div class="schedule-details-location mb-4">
+                    <h2 class="fs-16 fw-600 mb-3">Ubicación</h2>
+                    <div id="map"></div>
+                </div>
+                <!-- NOTES / COMMENTS -->
+                <div class="schedule-details-comments mb-4">
+                    <h2 class="fs-16 fw-600 mb-2">Notas o comentarios</h2>
+                    <p class="fs-14 fw-400 m-0">
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure, eligendi. Facilis numquam voluptas nobis exercitationem dignissimos quos ratione tempora illum. Ex natus accusamus maiores fugit molestiae suscipit quia porro? Porro?
+                    </p>
+                </div>
+            </div>
+        </div><!-- end div schedule details -->
+    </main>
+
+    <!-- NAVBAR -->
+    <footer id="navbar">
+        <!-- NOTIFICATIONS -->
+        <a href="notifications.html">
+            <img src="../assets/images/navbar-blanco-notificaciones.png" alt="">
+        </a>
+        <!-- CONTACTS -->
+        <a href="contacts.html">
+            <img src="../assets/images/navbar-blanco-contactos.png" alt="">
+        </a>
+        <!-- HOME -->
+        <a href="homepage.html">
+            <img src="../assets/images/navbar-dorado-inicio.png" alt="">
+        </a>
+        <!-- CALENDAR -->
+        <a href="calendar.html">
+            <img src="../assets/images/navbar-blanco-calendario.png" alt="">
+        </a>
+        <!-- PROFILE -->
+        <a href="profile.html">
+            <img src="../assets/images/navbar-blanco-perfil.png" alt="">
+        </a>
+    </footer>
+
+    <!-- JAVASCRIPT -->
+    <!-- Service worker PWA -->
+    <script src="../sw.js"></script>
+    <script src="../script.js"></script>
+    <script src="../assets/libs/bootstrap-5.2.3/bootstrap.min.js"></script>
+    <script src="../assets/js/jquery-3.6.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+    <!-- SWEET ALERT -->
+    <script>
+        function removeDate() {
+            Swal.fire({
+                title: '¿Estas seguro?',
+                text: "Confirme esta acción para eliminar la cita.",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#C39B62',
+                cancelButtonColor: '#A5A5A5',
+                confirmButtonText: 'Sí, ¡Eliminar!',
+                cancelButtonText: 'No, ¡Permanecer aquí!'
+            }).then((result) => {
+                location.reload()
+            })
+        }
+    </script>
+    <!-- GOOGLE MAPS -->
+    <script>
+        let map;
+        function initMap() {
+            map = new google.maps.Map(document.getElementById("map"), {
+                center: { lat: -34.397, lng: 150.644 },
+                zoom: 8,
+            });
+        }
+        window.initMap = initMap;
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB41DRUbKWJHPxaFjMAwdrzWzbVKartNGg&callback=initMap&v=weekly" defer></script>
+</body>
+</html>

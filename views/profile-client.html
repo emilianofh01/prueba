@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil de cliente</title>
+    <!-- TAB ICON -->
+    <link rel="icon" href="../assets/images/logo-dorado.png">
+    <!-- BOOTSTRAP 5.2.3 -->
+    <link rel="stylesheet" href="../assets/libs/bootstrap-5.2.3/bootstrap.min.css">
+    <!-- FONT AWESOME -->
+    <link rel="stylesheet" href="../assets/libs/fontawesome/css/all.min.css">
+    <!-- OWL CAROUSEL -->
+    <link rel="stylesheet" href="../assets/libs/owl-carousel-2.3.4/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="../assets/libs/owl-carousel-2.3.4/css/owl.theme.default.min.css">
+    <!-- MAIN CSS -->
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <!-- PWA META TAGS -->
+    <meta name="theme-color" content="#1A1A1A">
+    <meta name="MobileOptimized" content="width">
+    <meta name="HandheldFriendly" content="true">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#1A1A1A">
+    <link rel="shortcut icon" type="image/png" href="../img/64x64.png">
+    <link rel="apple-touch-icon" href="../img/64x64.png">
+    <link rel="apple-touch-startup-image" href="../img/64x64.png">
+    <link rel="manifest" href="../manifest.json">
+</head>
+
+<body>
+    <div id="app" v-cloak>
+        <!-- HEADER WITH RETURN AND TITLE -->
+        <header id="header" class="p-1">
+            <div class="header-return ms-2">
+                <a href="contacts.html" class="fs-24">
+                    <i class="fa-solid fa-arrow-left"></i>
+                </a>
+            </div>
+            <div class="header-title">
+                <h2 class="text-center fs-22 fw-700 m-0">Perfil de cliente</h2>
+            </div>
+            <div class="header-account me-2">
+                <a href="profile.html" class="d-flex justify-content-center align-items-center position-relative">
+                    <img style="overflow: hidden;" :src="`${datos.profile_photo_url ?? datos.userNameURL}`" @error="profileImageError" alt="">
+                    <span v-if="datos.notifications.pending_notifications"
+                        class="position-absolute translate-middle badge rounded-pill fw-700 fs-10 bgcolor-primary txtcolor-black">
+                        {{datos.notifications.pending_notifications}}
+                    </span>
+                </a>
+            </div>
+        </header>
+
+        <!-- MAIN CONTENT -->
+        <main class="container-fluid p-0">
+            <!-- BLACK SPACE -->
+            <div class="black-space"></div>
+            <!-- PROFILE CONTENT -->
+            <div class="profile-content pb-4">
+                <!-- PROFILE PIC, NAME AND DESCRIPTION -->
+                <div class="profile-info px-4">
+                    <img :src="info.profile_photo_url" style="background-color: #292222; overflow: hidden;"
+                        class="border-circle box-shadow-50 mb-3 object-fit-cover" alt="">
+                    <h1 class="fs-24 fw-700 txtcolor-black text-center mb-2">
+                        {{info.name}}
+                    </h1>
+                    <p class="fs-14 fw-400 txtcolor-black text-center mb-3">
+                        {{info.about}}
+                    </p>
+                </div>
+                <!-- CONTACT BUTTONS -->
+                <div class="profile-custumer-contact px-2 mb-3">
+                    <a :href="`tel:+${info.phone_number}`" class="mb-2">
+                        Llamar <i class="fa-solid fa-phone"></i>
+                    </a>
+                    <a :href="`sms:+${info.phone_number}`" class="mb-2">
+                        Contactar <i class="fa-solid fa-comment-dots"></i>
+                    </a>
+                    <a :href="`https://wa.me/${info.phone_number}`" class="mb-2">
+                        whatsapp <i class="fa-brands fa-whatsapp"></i>
+                    </a>
+                    <a href="schedule-date.html" class="mb-2">
+                        Agendar <i class="fa-solid fa-book-bookmark"></i>
+                    </a>
+                </div>
+                <!-- GENERAL INFO -->
+                <div class="px-4 mb-3">
+                    <div class="row">
+                        <!-- <div class="col-12 col-sm-6">
+                            <h3 class="ff-raleway fs-14 fw-400 txtcolor-black mb-2">
+                                <i class="fa-solid fa-briefcase me-2"></i>Lic. en Negocios Internacionales
+                            </h3>
+                        </div> -->
+                        <div v-if="info.grade" class="col-12 col-sm-6">
+                            <h3 class="ff-raleway fs-14 fw-400 txtcolor-black mb-2">
+                                <i class="fa-solid fa-user me-2"></i>{{info.grade}}
+                            </h3>
+                        </div>
+                        <div v-if="info.email" class="col-12 col-sm-6">
+                            <h3 class="ff-raleway fs-14 fw-400 txtcolor-black mb-2">
+                                <i class="fa-solid fa-envelope me-2"></i>{{info.email}}
+                            </h3>
+                        </div>
+                        <div v-if="info.phone_number" class="col-12 col-sm-6">
+                            <h3 class="ff-raleway fs-14 fw-400 txtcolor-black mb-2">
+                                <i class="fa-solid fa-phone me-2"></i>{{info.phone_number}}
+                            </h3>
+                        </div>
+                        <div v-if="info.position" class="col-12 col-sm-6">
+                            <h3 class="ff-raleway fs-14 fw-400 txtcolor-black mb-2">
+                                <i class="fa-solid fa-location-dot me-2"></i>{{info.position}}
+                            </h3>
+                        </div>
+                    </div><!-- end row -->
+                </div><!-- end div general info -->
+                <!-- CAROUSEL PROPERTIES -->
+                <div class="d-flex flex-column mb-3">
+                    <h2 class="fs-16 fw-600 txtcolor-black px-4">Propiedades</h2>
+                    <div class="owl-customer-properties owl-carousel owl-theme">
+                        <!-- ITEM -->
+                        <div class="item" v-for="property in info.related_properties">
+                            <a :href="`property-details.html?property=${property.slug}`" class="ps-4 position-relative">
+                                <img :src="property.images[0].full_path" class="box-shadow-25" alt=""
+                                    style="filter: brightness(75%);">
+                                <div class="d-flex flex-column w-100 text-center ps-4">
+                                    <h2 class="ff-raleway fs-12 fw-500 mb-1">{{property.name}}</h2>
+                                    <h3 class="ff-raleway fs-10 fw-400 fst-italic m-0">El Progreso, La Paz B.C.S.</h3>
+                                </div>
+                            </a>
+                        </div>                        
+                    </div><!-- end carousel -->
+                </div><!-- end div carousel properties -->
+                <!-- CAROUSEL FAVORITES -->
+                <div class="d-flex flex-column">
+                    <h2 class="fs-16 fw-600 txtcolor-black px-4">Favoritos</h2>
+                    <div class="owl-customer-favorites owl-carousel owl-theme">
+                        <!-- ITEM -->
+                        <div class="item" v-for="property in info.related_properties">
+                            <a href="property-details.html" class="ps-4">
+                                <img src="../assets/images/home-demo1.png" class="box-shadow-25" alt="">
+                                <div class="d-flex flex-column w-100 text-center ps-4">
+                                    <h2 class="ff-raleway fs-12 fw-500 mb-1">{{property.name}}</h2>
+                                    <h3 class="ff-raleway fs-10 fw-400 fst-italic m-0">{{property.state}}</h3>
+                                </div>
+                            </a>
+                        </div>
+                        
+                    </div><!-- end carousel -->
+                </div><!-- end div carousel favorites -->
+            </div><!-- end div profile content -->
+        </main>
+
+        <!-- NAVBAR -->
+        <footer id="navbar">
+            <!-- SCHEDULE -->
+            <a href="notifications.html">
+                <img src="../assets/images/navbar-blanco-notificaciones.png" alt="">
+            </a>
+            <!-- CONTACTS -->
+            <a href="contacts.html">
+                <img src="../assets/images/navbar-dorado-contactos.png" alt="">
+            </a>
+            <!-- HOME -->
+            <a href="homepage.html">
+                <img src="../assets/images/navbar-blanco-inicio.png" alt="">
+            </a>
+            <!-- CALENDAR -->
+            <a href="calendar.html">
+                <img src="../assets/images/navbar-blanco-calendario.png" alt="">
+            </a>
+            <!-- PROFILE -->
+            <a href="profile.html">
+                <img src="../assets/images/navbar-blanco-perfil.png" alt="">
+            </a>
+        </footer>
+    </div>
+    
+    <!-- JAVASCRIPT -->
+    <!-- Service worker PWA -->
+    <script src="../sw.js"></script>
+    <script src="../script.js"></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="../assets/libs/bootstrap-5.2.3/bootstrap.min.js"></script>
+    <script src="../assets/js/jquery-3.6.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+    <script src="../assets/libs/owl-carousel-2.3.4/js/owl.carousel.min.js"></script>
+
+    <script>
+        const { createApp } = Vue
+        const data = null;
+        const error = null;
+        createApp({
+            data() {
+                return {
+                    datos: JSON.parse(window.localStorage.getItem('usuario')),
+                    info: {},
+                    scriptDirArray: [
+                        "../assets/js/owl-carousels.js",
+                    ]
+                }
+            },
+            methods: {
+                profileImageError(event) {        
+                    event.target.src = this.datos.urlAvatar;
+                },
+                loadInfo() {
+                    const queryString = window.location.search;
+                    const urlParams = new URLSearchParams(queryString);
+
+                    axios({
+                        method: 'get',
+                        url: `https://rv.devcobaja.com/api/clients/${urlParams.get('id')}`,
+                        headers: {
+                            'Authorization': `Bearer ${this.datos.token}`,
+                        }
+                    })
+                        .then((response) => {
+                            let { data } = response.data
+                            let { profile_photo_url, name } = data;
+
+                            console.log(new URLSearchParams(name))
+                            data.profile_photo_url = profile_photo_url ?? `https://ui-avatars.com/api/?name=${name}&background=292222&color=fff&size=128`
+                            this.info = data;
+
+                            console.log(data);
+                        })
+                        .catch((error) => window.location.href="error-connection.html");
+                },
+
+                mountScript({ scriptDir = Array, container = HTMLScriptElement }) {
+                    scriptDir.map(obj => {
+                        let element = document.createElement('script');
+                        element.setAttribute('src', obj);
+                        container.appendChild(element)
+                    })
+                }
+
+            },
+            mounted() {
+                this.loadInfo();
+            },
+
+            updated() {
+                this.mountScript({
+                    scriptDir: this.scriptDirArray,
+                    container: document.body
+                });
+            }
+
+        }).mount('#app')
+    </script>
+</body>
+
+</html>

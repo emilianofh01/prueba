@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sin notificaciones</title>
+    <!-- TAB ICON -->
+    <link rel="icon" href="../assets/images/logo-dorado.png">
+    <!-- BOOTSTRAP 5.2.3 -->
+    <link rel="stylesheet" href="../assets/libs/bootstrap-5.2.3/bootstrap.min.css">
+    <!-- FONT AWESOME -->
+    <link rel="stylesheet" href="../assets/libs/fontawesome/css/all.min.css">
+    <!-- MAIN CSS -->
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <!-- PWA META TAGS -->
+    <meta name="theme-color" content="#1A1A1A">
+    <meta name="MobileOptimized" content="width">
+    <meta name="HandheldFriendly" content="true">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#1A1A1A">
+    <link rel="shortcut icon" type="image/png" href="../img/64x64.png">
+    <link rel="apple-touch-icon" href="../img/64x64.png">
+    <link rel="apple-touch-startup-image" href="../img/64x64.png">
+    <link rel="manifest" href="../manifest.json">
+</head>
+<body>
+    <!-- HEADER WITH LOGO AND TITLE -->
+    <header id="header" class="header-logo-title p-1">
+        <div class="header-logo">
+            <img src="../assets/images/logo-dorado-margen.png" alt="">
+        </div>
+        <div class="header-title">
+            <h2 class="text-center fs-24 fw-700 m-0">Notificaciones</h2>
+        </div>
+        <div class="header-account me-2">
+            <a href="profile.html" class="d-flex justify-content-center align-items-center position-relative">
+                <img src="../assets/images/profile-pic.png" alt="">
+            </a>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main class="container-fluid p-0 m-0">
+        <div class="notifications-empty px-4">
+            <img src="../assets/images/icono-notificaciones-vacias.png" class="mb-4" alt="">
+            <h1 class="ff-raleway fs-20 fw-500 txtcolor-black">
+                ¡No tienes ninguna notificación en estos momentos!
+            </h1>
+        </div>
+    </main>
+
+    <!-- NAVBAR -->
+    <footer id="navbar">
+        <!-- NOTIFICATIONS -->
+        <a href="notifications.html">
+            <img src="../assets/images/navbar-blanco-notificaciones.png" alt="">
+        </a>
+        <!-- CONTACTS -->
+        <a href="contacts.html">
+            <img src="../assets/images/navbar-blanco-contactos.png" alt="">
+        </a>
+        <!-- HOME -->
+        <a href="homepage.html">
+            <img src="../assets/images/navbar-blanco-inicio.png" alt="">
+        </a>
+        <!-- CALENDAR -->
+        <a href="calendar.html">
+            <img src="../assets/images/navbar-blanco-calendario.png" alt="">
+        </a>
+        <!-- PROFILE -->
+        <a href="profile.html">
+            <img src="../assets/images/navbar-blanco-perfil.png" alt="">
+        </a>
+    </footer>
+
+    <!-- JAVASCRIPT -->
+    <!-- Service worker PWA -->
+    <script src="../sw.js"></script>
+    <script src="../script.js"></script>
+    <script src="../assets/libs/bootstrap-5.2.3/bootstrap.min.js"></script>
+    <script src="../assets/js/jquery-3.6.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+</body>
+</html>

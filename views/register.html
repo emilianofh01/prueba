@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <!-- TAB ICON -->
+    <link rel="icon" href="../assets/images/logo-dorado.png">
+    <!-- BOOTSTRAP 5.2.3 -->
+    <link rel="stylesheet" href="../assets/libs/bootstrap-5.2.3/bootstrap.min.css">
+    <!-- FONT AWESOME -->
+    <link rel="stylesheet" href="../assets/libs/fontawesome/css/all.min.css">
+    <!-- MAIN CSS -->
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <!-- PWA META TAGS -->
+    <meta name="theme-color" content="#1A1A1A">
+    <meta name="MobileOptimized" content="width">
+    <meta name="HandheldFriendly" content="true">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#1A1A1A">
+    <link rel="shortcut icon" type="image/png" href="../img/64x64.png">
+    <link rel="apple-touch-icon" href="../img/64x64.png">
+    <link rel="apple-touch-startup-image" href="../img/64x64.png">
+    <link rel="manifest" href="../manifest.json">
+</head>
+<body>
+    <div class="login-background">
+        <div class="login-background-overlay d-flex flex-column justify-content-center align-items-center">
+            <div class="register px-4">
+                <img src="../assets/images/logo-blanco.png" class="p-2 my-5" alt="">
+                <!-- EMAIL INPUT -->
+                <div class="login-inputs">
+                    <label for="email" class="mb-2">Correo electrónico:</label>
+                    <div>
+                        <input type="email" name="email" class="input-next-icon mb-2" placeholder="Ingresa tu correo" required>
+                        <span><i class="fa-solid fa-envelope"></i></span>
+                    </div>
+                </div>
+                <!-- NAME INPUT -->
+                <div class="login-inputs">
+                    <label for="name" class="mb-2">Nombre(s):</label>
+                    <input type="text" name="name" class="mb-2" placeholder="Ingresa tu nombre" required>
+                </div>
+                <!-- LASTNAME INPUT -->
+                <div class="login-inputs">
+                    <label for="lastname" class="mb-2">Apellido(s):</label>
+                    <input type="text" name="lastname" class="mb-2" placeholder="Ingresa tus apellidos" required>
+                </div>
+                <!-- PASSWORD INPUT -->
+                <div class="login-inputs">
+                    <label for="password" class="mb-2">Contraseña:</label>
+                    <div>
+                        <input type="password" id="password" name="password" class="input-next-icon mb-2" placeholder="Ingresa tu contraseña" required>
+                        <button type="button"><i class="fa-solid fa-eye-slash" id="togglePassword"></i></button>
+                    </div>
+                </div>
+                 <!-- CONFIRM PASSWORD INPUT -->
+                 <div class="login-inputs">
+                    <label for="passwordVerify" class="mb-2">Confirmar contraseña:</label>
+                    <div>
+                        <input type="password" id="passwordVerify" name="passwordVerify" class="input-next-icon mb-2" placeholder="Ingresa tu contraseña nuevamente" required>
+                        <button type="button"><i class="fa-solid fa-eye-slash" id="togglePasswordVerify"></i></button>
+                    </div>
+                </div>
+                <!-- BIRTHDATE INPUT -->
+                <div class="login-inputs">
+                    <label for="birthdate" class="mb-2">Fecha de nacimientio:</label>
+                    <div>
+                        <input type="date" name="birthdate" class="mb-2" placeholder="Ingresa tu fecha de nacimiento" required>
+                    </div>
+                </div>
+                <!-- PHONE INPUT -->
+                <div class="login-inputs">
+                    <label for="phone" class="mb-2">Ingresa tu teléfono:</label>
+                    <input type="tel" name="phone" class="mb-2" placeholder="Ingresa tu teléfono" required>
+                </div>
+                <!-- BUTTONS ACTIONS -->
+                <div class="login-buttons-actions mt-4 mb-5">
+                    <button type="submit" class="mb-3 bgcolor-primary">
+                        Comenzar
+                    </button>
+                    <button type="button" class="mb-2 bgcolor-gray">
+                        <a href="../index.html">
+                            Cancelar
+                        </a>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+
+
+    <!-- JAVASCRIPT -->
+    <!-- Service worker PWA -->
+    <script src="../sw.js"></script>
+    <script src="../script.js"></script>
+    <script src="../assets/libs/bootstrap-5.2.3/bootstrap.min.js"></script>
+    <script src="../assets/js/jquery-3.6.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+    <script src="../assets/js/toggle-password.js"></script>
+</body>
+</html>

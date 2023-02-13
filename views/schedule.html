@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agenda</title>
+    <!-- TAB ICON -->
+    <link rel="icon" href="../assets/images/logo-dorado.png">
+    <!-- BOOTSTRAP 5.2.3 -->
+    <link rel="stylesheet" href="../assets/libs/bootstrap-5.2.3/bootstrap.min.css">
+    <!-- FONT AWESOME -->
+    <link rel="stylesheet" href="../assets/libs/fontawesome/css/all.min.css">
+    <!-- MAIN CSS -->
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <!-- PWA META TAGS -->
+    <meta name="theme-color" content="#1A1A1A">
+    <meta name="MobileOptimized" content="width">
+    <meta name="HandheldFriendly" content="true">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#1A1A1A">
+    <link rel="shortcut icon" type="image/png" href="../img/64x64.png">
+    <link rel="apple-touch-icon" href="../img/64x64.png">
+    <link rel="apple-touch-startup-image" href="../img/64x64.png">
+    <link rel="manifest" href="../manifest.json">
+</head>
+
+<body>
+    <div id="app" v-cloak>
+        <!-- HEADER WITH LOGO AND TITLE -->
+        <header id="header" class="header-logo-title p-1">
+            <div class="header-logo">
+                <img src="../assets/images/logo-dorado-margen.png" alt="">
+            </div>
+            <div class="header-title">
+                <h2 class="text-center fs-22 fw-700 m-0">Agenda</h2>
+            </div>
+            <div class="header-account me-2">
+                <a href="profile.html" class="d-flex justify-content-center align-items-center position-relative">
+                    <img style="overflow: hidden;" :src="`${datos.profile_photo_url ?? datos.userNameURL}`"
+                        @error="profileImageError" alt="">
+                    <span v-if="datos.notifications.pending_notifications"
+                        class="position-absolute translate-middle badge rounded-pill fw-700 fs-10 bgcolor-primary txtcolor-black">
+                        {{datos.notifications.pending_notifications}}
+                    </span>
+                </a>
+            </div>
+        </header>
+
+        <!-- MAIN CONTENT -->
+        <main class="container-fluid p-0">
+            <!-- SEARCH BAR -->
+            <div class="search-bar p-4">
+                <form action="" method="" class="d-flex">
+                    <button type="submit">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </button>
+                    <input @input="changeStateFilter" type="text" name="" class="px-1" placeholder="Buscar cita">
+                </form>
+                <div class="dropdown dropdown-search-filters">
+                    <button type="button" data-bs-toggle="dropdown" aria-expanded="false" class="search-bar-filter">
+                        <!-- <img src="../assets/images/icono-filtros.png" alt=""> -->
+                    </button>
+                    <!-- <div class="dropdown-menu ff-raleway p-0">
+                        <div class="dropdown-menu-content p-3">
+                            <h3 class="fs-18 fw-600 text-center mb-3">Filtrar por:</h3>
+                            <div class="d-flex justify-content-between align-items-center ps-3 pe-2 mb-3">
+                                <label for="find_by" class="fs-12 fw-600">Buscar por:</label>
+                                <select name="find_by" class="fs-12 fw-700 txtcolor-primary">
+                                    <option value="">Clientes</option>
+                                    <option value="">Soy una opción</option>
+                                </select>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center ps-3 pe-2 mb-3">
+                                <label for="find_by" class="fs-12 fw-600">Tipo de propiedad:</label>
+                                <select name="find_by" class="fs-12 fw-700 txtcolor-primary">
+                                    <option value="">Renta</option>
+                                    <option value="">Venta</option>
+                                    <option value="">Departamento</option>
+                                </select>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center ps-3 pe-2 mb-2">
+                                <label for="find_by" class="fs-12 fw-600">Ordenar por:</label>
+                                <select name="find_by" class="fs-12 fw-700 txtcolor-primary">
+                                    <option value="">Fecha</option>
+                                    <option value="">Soy una opción</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div> -->
+                </div>
+            </div><!-- end search bar -->
+            <!-- LIST OF APPOINTMENTS -->
+            <div class="schedule-list px-4 pb-4">
+                <!-- ROW -->
+                <div class="row mb-3" v-for="(date,dateTitle,index) in filterEvents()">
+                    <!-- DATE -->
+                    <!-- <h2 class="ff-raleway fs-16 mb-3"><b>Hoy</b>, 5 enero 2023</h2> -->
+                    <h2 class="ff-raleway fs-16 mb-3 font-weight-bold"><b v-html="dateAsString({date:dateTitle})"></b>
+                    </h2>
+
+                    <!-- CARD DATE -->
+                    <div v-for="event in date" class="col-12 col-md-6 col-lg-4 col-xl-4 col-xxl-3 mb-3">
+                        <div class="card-date p-3">
+                            <div class="d-flex w-100 mb-2">
+                                <div class="card-date-content">
+                                    <h1 class="fs-18 fw-700 text-center">{{event.title}}</h1>
+                                    <div class="d-flex mb-1">
+                                        <label>Cliente:</label>
+                                        <h2 class="fst-italic fs-14 fw-400 m-0">Juan M. Flores Cota</h2>
+                                    </div>
+                                    <div class="d-flex mb-1">
+                                        <label>Fecha:</label>
+                                        <h2 class="fst-normal fs-14 fw-400 m-0"
+                                            v-html="getFormatDate({date:event.start})"></h2>
+                                    </div>
+                                    <div class="d-flex">
+                                        <label>Hora:</label>
+                                        <h2 class="fst-normal fs-14 fw-700 m-0"
+                                            v-html="getFormatTime({date:event.start})"></h2>
+                                    </div>
+                                </div>
+                                <div class="card-date-preview ms-2">
+                                    <img src="../assets/images/home-demo1.png" alt="">
+                                </div>
+                            </div>
+                            <div class="card-date-buttons w-100 pt-1">
+                                <div class="card-date-btn-details">
+                                    <a href="schedule-details.html" class="fs-14 fw-700">Detalles</a>
+                                </div>
+                                <div class="card-date-btn-contact">
+                                    <a
+                                        href="https://www.google.com/maps/search/?api=1&query=24.16122423600197,-110.31834537020787"><i
+                                            class="fa-solid fa-location-dot"></i></a>
+                                    <a href="tel:526123480678"><i class="fa-solid fa-phone"></i></a>
+                                    <a href="sms:526123480678"><i class="fa-solid fa-comment-dots"></i></a>
+                                </div>
+                            </div>
+                        </div><!-- end card date -->
+                    </div><!-- end col card date -->
+                </div><!-- end row -->
+                <!-- ROW -->
+
+            </div>
+            <!-- ADD BUTTON -->
+            <a href="schedule-add.html" class="add-button box-shadow-25">
+                <i class="fa-solid fa-plus"></i>
+            </a>
+        </main>
+
+        <!-- NAVBAR -->
+        <footer id="navbar">
+            <!-- NOTIFICATIONS -->
+            <a href="notifications.html">
+                <img src="../assets/images/navbar-blanco-notificaciones.png" alt="">
+            </a>
+            <!-- CONTACTS -->
+            <a href="contacts.html">
+                <img src="../assets/images/navbar-blanco-contactos.png" alt="">
+            </a>
+            <!-- HOME -->
+            <a href="homepage.html">
+                <img src="../assets/images/navbar-blanco-inicio.png" alt="">
+            </a>
+            <!-- CALENDAR -->
+            <a href="calendar.html">
+                <img src="../assets/images/navbar-blanco-calendario.png" alt="">
+            </a>
+            <!-- PROFILE -->
+            <a href="profile.html">
+                <img src="../assets/images/navbar-dorado-perfil.png" alt="">
+            </a>
+        </footer>
+    </div>
+
+
+    <!-- JAVASCRIPT -->
+    <script src="../sw.js"></script>
+    <script src="../script.js"></script>
+    <script src="../assets/libs/bootstrap-5.2.3/bootstrap.bundle.min.js"></script>
+    <script src="../assets/js/jquery-3.6.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script>
+        const { createApp } = Vue
+        const data = null;
+        const error = null;
+        createApp({
+            data() {
+                return {
+                    datos: JSON.parse(window.localStorage.getItem('usuario')),
+                    events: [],
+                    filter: "",
+                }
+            },
+            methods: {
+                profileImageError(event) {
+                    event.target.src = this.datos.urlAvatar;
+                },
+                async loadEvents() {
+                    let { data: res } = await axios({
+                        method: 'GET',
+                        url: 'https://rv.devcobaja.com/api/events',
+                        headers: {
+                            'Authorization': `Bearer ${this.datos.token}`,
+                        }
+                    })
+
+                    this.events = res.data
+                },
+                // Cambia el estado de filter
+                changeStateFilter(event) {
+                    this.filter = event.target.value;
+                },
+                filterEvents() {
+                    let filteredEvents = this.events.filter(event => event.title.includes(this.filter));
+                    let groupedData = {};
+
+                    /* 
+                        Lo que se hace es crear un arreglo de objetos agrupados por fechas con el fin
+                        de facilitar la iteracion de cada uno en el DOM
+                    */
+                    filteredEvents.map(event => {
+                        /* 
+                            Si la fecha no se encuentra en el objeto, entonces se crea un elemento con la fecha y 
+                            Dentro tendra un arreglo donde estara el primer evento de esa fecha 
+                        */
+                        if (!groupedData[event.start]) {
+                            groupedData[event.start] = [event];
+                            return;
+                        }
+                        groupedData[event.start].push(event);
+                    })
+
+                    return groupedData;
+                },
+                // Fecha para la parte superior de las cards
+                dateAsString({ date = String }) {
+                    const monthNames = ["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto",
+                        "septiembre", "octubre", "noviembre", "diciembre"]
+                    let fullDate = new Date(date);
+                    let month = monthNames[fullDate.getMonth()];
+                    return `${fullDate.getDate()} ${month} ${fullDate.getFullYear()}`
+                },
+                // Regresa los minutos en formato "10:10 AM"
+                getFormatTime({ date = String }) {
+                    let fullDate = new Date(date);
+                    let hours = (fullDate.getHours() + 11) % 12 + 1;
+                    let minutes = String(fullDate.getMinutes()).padStart(2, '0');
+                    let amPm = fullDate.getHours() > 12 ? 'PM' : 'AM';
+                    return `${hours}:${minutes} ${amPm}`
+                },
+                getFormatDate({ date = String }) {
+                    let fullDate = new Date(date);
+                    let formatDate = {
+                        day: String(fullDate.getDate()).padStart(2, '0'),
+                        month: String(fullDate.getMonth() + 1).padStart(2, '0'),
+                        year: fullDate.getFullYear()
+                    }
+                    return `${formatDate.day}/${formatDate.month}/${formatDate.year}`;
+                },
+            },
+            mounted() {
+                this.loadEvents();
+            }
+        }).mount('#app')
+    </script>
+</body>
+
+</html>

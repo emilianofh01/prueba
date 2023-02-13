@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agendar cita</title>
+    <!-- TAB ICON -->
+    <link rel="icon" href="../assets/images/logo-dorado.png">
+    <!-- BOOTSTRAP 5.2.3 -->
+    <link rel="stylesheet" href="../assets/libs/bootstrap-5.2.3/bootstrap.min.css">
+    <!-- FONT AWESOME -->
+    <link rel="stylesheet" href="../assets/libs/fontawesome/css/all.min.css">
+    <!-- OWL CAROUSEL -->
+    <link rel="stylesheet" href="../assets/libs/owl-carousel-2.3.4/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="../assets/libs/owl-carousel-2.3.4/css/owl.theme.default.min.css">
+    <!-- MAIN CSS -->
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <!-- PWA META TAGS -->
+    <meta name="theme-color" content="#1A1A1A">
+    <meta name="MobileOptimized" content="width">
+    <meta name="HandheldFriendly" content="true">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#1A1A1A">
+    <link rel="shortcut icon" type="image/png" href="../img/64x64.png">
+    <link rel="apple-touch-icon" href="../img/64x64.png">
+    <link rel="apple-touch-startup-image" href="../img/64x64.png">
+    <link rel="manifest" href="../manifest.json">
+</head>
+<body>
+    <!-- HEADER WITH RETURN AND TITLE -->
+    <header id="header" class="p-1">
+        <div class="header-return ms-2">
+            <a href="schedule.html" class="fs-24">
+                <i class="fa-solid fa-arrow-left"></i>
+            </a>
+        </div>
+        <div class="header-title">
+            <h2 class="text-center fs-22 fw-700 m-0">Agendar cita</h2>
+        </div>
+        <div class="header-account me-2">
+            <a href="profile.html" class="d-flex justify-content-center align-items-center position-relative">
+                <img src="../assets/images/profile-pic.png" alt="">
+                <span class="position-absolute translate-middle badge rounded-pill fw-700 fs-10 bgcolor-primary txtcolor-black">
+                    3
+                </span>
+            </a>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main class="container-fluid p-0 m-0">
+        <div class="schedule-add">
+            <!-- SELECT USER -->
+            <div class="schedule-add-select-user">
+                <div class="d-flex justify-content-between align-items-center px-4 mt-4 mb-2">
+                    <h1 class="fs-16 fw-600 m-0">Seleccionar cliente</h1>
+                    <a href="contacts-add.html" class="schedule-add-btn-new mb-1"><i class="fa-solid fa-plus"></i></a>
+                </div>
+                <!-- SEARCH BAR USER -->
+                <div class="search-bar search-bar-alt px-4 mb-2">
+                    <form action="" method="" class="d-flex">
+                        <button type="submit">
+                            <i class="fa-solid fa-magnifying-glass fs-14"></i>
+                        </button>
+                        <input type="text" name="" class="px-1" placeholder="Buscar Usuario">
+                    </form>
+                </div><!-- end search bar user -->
+                <!-- CAROUSEL USER -->
+                <div class="owl-schedule-add owl-carousel owl-theme popup-gallery">
+                    <div class="item">
+                        <label class="schedule-add-select-option option-user ms-4">
+                            <input type="radio" name="customer" value="" required>
+                            <span class="py-2 px-3">
+                                <img src="../assets/images/profile-person1.png" class="me-2" alt="">
+                                <div class="d-flex flex-column">
+                                    <h2 class="fs-16 fw-500 w-100 m-0">María Cruz Vega</h2>
+                                    <div class="d-flex">
+                                        <i class="fa-solid fa-location-dot me-2"></i>
+                                        <h2 class="fs-14 fw-400 fst-italic m-0">La Paz, B.C.S</h2>
+                                    </div>
+                                </div>
+                            </span>
+                        </label>
+                    </div>
+                    <div class="item">
+                        <label class="schedule-add-select-option option-user">
+                            <input type="radio" name="customer" value="" required>
+                            <span class="py-2 px-3">
+                                <img src="../assets/images/profile-person2.png" class="me-2" alt="">
+                                <div class="d-flex flex-column">
+                                    <h2 class="fs-16 fw-500 m-0">Juan Miguel Flores Cota</h2>
+                                    <div class="d-flex">
+                                        <i class="fa-solid fa-location-dot me-2"></i>
+                                        <h2 class="fs-14 fw-400 fst-italic m-0">Los Cabos, B.C.S</h2>
+                                    </div>
+                                </div>
+                            </span>
+                        </label>
+                    </div>
+                    <div class="item">
+                        <label class="schedule-add-select-option option-user">
+                            <input type="radio" name="customer" value="" required>
+                            <span class="py-2 px-3">
+                                <img src="../assets/images/profile-person3.png" class="me-2" alt="">
+                                <div class="d-flex flex-column">
+                                    <h2 class="fs-16 fw-500 m-0">Carolina Amador Zepeda</h2>
+                                    <div class="d-flex">
+                                        <i class="fa-solid fa-location-dot me-2"></i>
+                                        <h2 class="fs-14 fw-400 fst-italic m-0">La Paz B.C.S</h2>
+                                    </div>
+                                </div>
+                            </span>
+                        </label>
+                    </div>
+                </div><!-- end carousel -->
+            </div><!-- end div select user -->
+            <!-- SELECT REASON -->
+            <div class="schedule-add-select-reason">
+                <h1 class="fs-16 fw-600 m-0 px-4 mt-4 mb-2">Seleccionar motivo de cita</h1>
+                <!-- CAROUSEL REASON -->
+                <div class="owl-schedule-add owl-carousel owl-theme popup-gallery">
+                    <div class="item">
+                        <label class="schedule-add-select-option option-reason ms-4">
+                            <input type="radio" name="reason" value="" required>
+                            <span class="justify-content-center py-2 px-3">
+                                <h2 class="fs-14 fw-500 m-0">Propietario</h2>
+                            </span>
+                        </label>
+                    </div>
+                    <div class="item">
+                        <label class="schedule-add-select-option option-reason">
+                            <input type="radio" name="reason" value="" required>
+                            <span class="justify-content-center py-2 px-3">
+                                <h2 class="fs-14 fw-500 m-0">Interesado</h2>
+                            </span>
+                        </label>
+                    </div>
+                    <div class="item">
+                        <label class="schedule-add-select-option option-reason">
+                            <input type="radio" name="reason" value="" required>
+                            <span class="justify-content-center py-2 px-3">
+                                <h2 class="fs-14 fw-500 m-0">Cliente</h2>
+                            </span>
+                        </label>
+                    </div>
+                    <div class="item">
+                        <label class="schedule-add-select-option option-reason">
+                            <input type="radio" name="reason" value="" required>
+                            <span class="justify-content-center py-2 px-3">
+                                <h2 class="fs-14 fw-500 m-0">Open House</h2>
+                            </span>
+                        </label>
+                    </div>
+                </div><!-- end carousel -->
+            </div><!-- end select reason -->
+            <!-- SELECT PROPERTY -->
+            <div class="schedule-add-select-property">
+                <div class="d-flex justify-content-between align-items-center px-4 mt-4 mb-2">
+                    <h1 class="fs-16 fw-600 m-0">Seleccionar propiedad</h1>
+                    <a href="property-add.html" class="schedule-add-btn-new mb-1"><i class="fa-solid fa-plus"></i></a>
+                </div>
+                <!-- SEARCH BAR PROPERTY -->
+                <div class="search-bar search-bar-alt px-4 mb-2">
+                    <form action="" method="" class="d-flex">
+                        <button type="submit">
+                            <i class="fa-solid fa-magnifying-glass fs-14"></i>
+                        </button>
+                        <input type="text" name="" class="px-1" placeholder="Buscar propiedad">
+                    </form>
+                </div><!-- end search bar user -->
+                <!-- CAROUSEL PROPERTY -->
+                <div class="owl-schedule-add owl-carousel owl-theme popup-gallery">
+                    <div class="item">
+                        <label class="schedule-add-select-option option-property ms-4">
+                            <input type="radio" name="property" value="" required>
+                            <span class="p-3">
+                                <img src="../assets/images/home-demo1.png" alt="">
+                                <div class="d-flex flex-column ms-2">
+                                    <h2 class="fs-16 fw-500">Casa Paraíso del Sol</h2>
+                                    <div class="d-flex">
+                                        <i class="fa-solid fa-location-dot me-2"></i>
+                                        <h2 class="fs-14 fw-400 fst-italic mb-2">La Paz, B.C.S.</h2>
+                                    </div>
+                                    <div class="d-flex align-items-center">
+                                        <i class="fa-solid fa-bed"></i>
+                                        <h4 class="ff-roboto fs-16 fw-700 mx-2 my-0">4</h4>
+                                        <i class="fa-solid fa-bath"></i>
+                                        <h4 class="ff-roboto fs-16 fw-700 mx-2 my-0">3</h4>
+                                        <i class="fa-solid fa-car"></i>
+                                        <h4 class="ff-roboto fs-16 fw-700 mx-2 my-0">2</h4>
+                                    </div>
+                                </div>
+                            </span>
+                        </label>
+                    </div>
+                    <div class="item">
+                        <label class="schedule-add-select-option option-property">
+                            <input type="radio" name="property" value="" required>
+                            <span class="p-3">
+                                <img src="../assets/images/home-demo2.png" alt="">
+                                <div class="d-flex flex-column ms-2">
+                                    <h2 class="fs-16 fw-500">Casa Progreso</h2>
+                                    <div class="d-flex">
+                                        <i class="fa-solid fa-location-dot me-2"></i>
+                                        <h2 class="fs-14 fw-400 fst-italic mb-2">La Paz, B.C.S.</h2>
+                                    </div>
+                                    <div class="d-flex align-items-center">
+                                        <i class="fa-solid fa-bed"></i>
+                                        <h4 class="ff-roboto fs-16 fw-700 mx-2 my-0">4</h4>
+                                        <i class="fa-solid fa-bath"></i>
+                                        <h4 class="ff-roboto fs-16 fw-700 mx-2 my-0">3</h4>
+                                        <i class="fa-solid fa-car"></i>
+                                        <h4 class="ff-roboto fs-16 fw-700 mx-2 my-0">2</h4>
+                                    </div>
+                                </div>
+                            </span>
+                        </label>
+                    </div>
+                    <div class="item">
+                        <label class="schedule-add-select-option option-property">
+                            <input type="radio" name="property" value="" required>
+                            <span class="p-3">
+                                <img src="../assets/images/home-demo3.png" alt="">
+                                <div class="d-flex flex-column ms-2">
+                                    <h2 class="fs-16 fw-500">Casa Perla del Golfo</h2>
+                                    <div class="d-flex">
+                                        <i class="fa-solid fa-location-dot me-2"></i>
+                                        <h2 class="fs-14 fw-400 fst-italic mb-2">La Paz, B.C.S.</h2>
+                                    </div>
+                                    <div class="d-flex align-items-center">
+                                        <i class="fa-solid fa-bed"></i>
+                                        <h4 class="ff-roboto fs-16 fw-700 mx-2 my-0">4</h4>
+                                        <i class="fa-solid fa-bath"></i>
+                                        <h4 class="ff-roboto fs-16 fw-700 mx-2 my-0">3</h4>
+                                        <i class="fa-solid fa-car"></i>
+                                        <h4 class="ff-roboto fs-16 fw-700 mx-2 my-0">2</h4>
+                                    </div>
+                                </div>
+                            </span>
+                        </label>
+                    </div>
+                </div><!-- end carousel -->
+            </div><!-- end select property -->
+            <!-- SELECT DATE -->
+            <div class="schedule-add-select-date">
+                <h1 class="fs-16 fw-600 m-0 px-4 mt-4 mb-2">Seleccionar fecha</h1>
+                <!-- CAROUSEL DATE -->
+                <div class="owl-schedule-add-date owl-carousel owl-theme popup-gallery">
+                    <div class="item">
+                        <label class="schedule-add-select-option option-date ms-4">
+                            <input type="radio" name="date" value="" required>
+                            <span class="flex-column px-2 py-2">
+                                <h2 class="fs-16 fw-400 text-center mb-1">DIC</h2>
+                                <h2 class="fs-24 fw-700 text-center mb-1">10</h2>
+                                <h2 class="fs-16 fw-400 text-center m-0">SAB</h2>
+                            </span>
+                        </label>
+                    </div>
+                    <div class="item">
+                        <label class="schedule-add-select-option option-date">
+                            <input type="radio" name="date" value="" required>
+                            <span class="flex-column px-2 py-2">
+                                <h2 class="fs-16 fw-400 text-center mb-1">DIC</h2>
+                                <h2 class="fs-24 fw-700 text-center mb-1">11</h2>
+                                <h2 class="fs-16 fw-400 text-center m-0">DOM</h2>
+                            </span>
+                        </label>
+                    </div>
+                    <div class="item">
+                        <label class="schedule-add-select-option option-date">
+                            <input type="radio" name="date" value="" required>
+                            <span class="flex-column px-2 py-2">
+                                <h2 class="fs-16 fw-400 text-center mb-1">DIC</h2>
+                                <h2 class="fs-24 fw-700 text-center mb-1">12</h2>
+                                <h2 class="fs-16 fw-400 text-center m-0">LUN</h2>
+                            </span>
+                        </label>
+                    </div>
+                    <div class="item">
+                        <label class="schedule-add-select-option option-date">
+                            <input type="radio" name="date" value="" required>
+                            <span class="flex-column px-2 py-2">
+                                <h2 class="fs-16 fw-400 text-center mb-1">DIC</h2>
+                                <h2 class="fs-24 fw-700 text-center mb-1">13</h2>
+                                <h2 class="fs-16 fw-400 text-center m-0">MAR</h2>
+                            </span>
+                        </label>
+                    </div>
+                    <div class="item">
+                        <label class="schedule-add-select-option option-date">
+                            <input type="radio" name="date" value="" required>
+                            <span class="flex-column px-2 py-2">
+                                <h2 class="fs-16 fw-400 text-center mb-1">DIC</h2>
+                                <h2 class="fs-24 fw-700 text-center mb-1">14</h2>
+                                <h2 class="fs-16 fw-400 text-center m-0">MIE</h2>
+                            </span>
+                        </label>
+                    </div>
+                    <div class="item">
+                        <label class="schedule-add-select-option option-date">
+                            <input type="radio" name="date" value="" required>
+                            <span class="flex-column px-2 py-2">
+                                <h2 class="fs-16 fw-400 text-center mb-1">DIC</h2>
+                                <h2 class="fs-24 fw-700 text-center mb-1">15</h2>
+                                <h2 class="fs-16 fw-400 text-center m-0">JUE</h2>
+                            </span>
+                        </label>
+                    </div>
+                    <div class="item">
+                        <label class="schedule-add-select-option option-date">
+                            <input type="radio" name="date" value="" required>
+                            <span class="flex-column px-2 py-2">
+                                <h2 class="fs-16 fw-400 text-center mb-1">DIC</h2>
+                                <h2 class="fs-24 fw-700 text-center mb-1">16</h2>
+                                <h2 class="fs-16 fw-400 text-center m-0">VIE</h2>
+                            </span>
+                        </label>
+                    </div>
+                    <div class="item">
+                        <label class="schedule-add-select-option option-date">
+                            <input type="radio" name="date" value="" required>
+                            <span class="flex-column px-2 py-2">
+                                <h2 class="fs-16 fw-400 text-center mb-1">DIC</h2>
+                                <h2 class="fs-24 fw-700 text-center mb-1">17</h2>
+                                <h2 class="fs-16 fw-400 text-center m-0">SAB</h2>
+                            </span>
+                        </label>
+                    </div>
+                    <div class="item">
+                        <label class="schedule-add-select-option option-date">
+                            <input type="radio" name="date" value="" required>
+                            <span class="flex-column px-2 py-2">
+                                <h2 class="fs-16 fw-400 text-center mb-1">DIC</h2>
+                                <h2 class="fs-24 fw-700 text-center mb-1">18</h2>
+                                <h2 class="fs-16 fw-400 text-center m-0">DOM</h2>
+                            </span>
+                        </label>
+                    </div>
+                </div><!-- end carousel -->
+            </div><!-- end select date -->
+            <!-- SELECT HOUR -->
+            <div class="schedule-add-select-hour px-4">
+                <h1 class="fs-16 fw-600 m-0 mt-4 mb-2">Seleccionar hora</h1>
+                <!-- ROW -->
+                <div class="row">
+                    <div class="col-4 col-sm-3 pb-2 px-1">
+                        <label class="schedule-add-select-option option-hour w-100">
+                            <input type="radio" name="hour" value="" required>
+                            <span class="justify-content-center px-2 py-2">
+                                <h2 class="fs-18 text-center m-1"><b>08:30</b> AM</h2>
+                            </span>
+                        </label>
+                    </div><!-- end col -->
+                    <div class="col-4 col-sm-3 pb-2 px-1">
+                        <label class="schedule-add-select-option option-hour w-100">
+                            <input type="radio" name="hour" value="" required>
+                            <span class="justify-content-center px-2 py-2">
+                                <h2 class="fs-18 text-center m-1"><b>09:00</b> AM</h2>
+                            </span>
+                        </label>
+                    </div><!-- end col -->
+                    <div class="col-4 col-sm-3 pb-2 px-1">
+                        <label class="schedule-add-select-option option-hour w-100">
+                            <input type="radio" name="hour" value="" required>
+                            <span class="justify-content-center px-2 py-2">
+                                <h2 class="fs-18 text-center m-1"><b>10:00</b> AM</h2>
+                            </span>
+                        </label>
+                    </div><!-- end col -->
+                    <div class="col-4 col-sm-3 pb-2 px-1">
+                        <label class="schedule-add-select-option option-hour w-100">
+                            <input type="radio" name="hour" value="" required>
+                            <span class="justify-content-center px-2 py-2">
+                                <h2 class="fs-18 text-center m-1"><b>11:00</b> AM</h2>
+                            </span>
+                        </label>
+                    </div><!-- end col -->
+                    <div class="col-4 col-sm-3 pb-2 px-1">
+                        <label class="schedule-add-select-option option-hour w-100">
+                            <input type="radio" name="hour" value="" required>
+                            <span class="justify-content-center px-2 py-2">
+                                <h2 class="fs-18 text-center m-1"><b>12:30</b> PM</h2>
+                            </span>
+                        </label>
+                    </div><!-- end col -->
+                    <div class="col-4 col-sm-3 pb-2 px-1">
+                        <label class="schedule-add-select-option option-hour w-100">
+                            <input type="radio" name="hour" value="" required>
+                            <span class="justify-content-center px-2 py-2">
+                                <h2 class="fs-18 text-center m-1"><b>01:00</b> PM</h2>
+                            </span>
+                        </label>
+                    </div><!-- end col -->
+                    <div class="col-4 col-sm-3 pb-2 px-1">
+                        <label class="schedule-add-select-option option-hour w-100">
+                            <input type="radio" name="hour" value="" required>
+                            <span class="justify-content-center px-2 py-2">
+                                <h2 class="fs-18 text-center m-1"><b>03:30</b> PM</h2>
+                            </span>
+                        </label>
+                    </div><!-- end col -->
+                    <div class="col-4 col-sm-3 pb-2 px-1">
+                        <label class="schedule-add-select-option option-hour w-100">
+                            <input type="radio" name="hour" value="" required>
+                            <span class="justify-content-center px-2 py-2">
+                                <h2 class="fs-18 text-center m-1"><b>04:00</b> PM</h2>
+                            </span>
+                        </label>
+                    </div><!-- end col -->
+                    <div class="col-4 col-sm-3 pb-2 px-1">
+                        <label class="schedule-add-select-option option-hour w-100">
+                            <input type="radio" name="hour" value="" required>
+                            <span class="justify-content-center px-2 py-2">
+                                <h2 class="fs-18 text-center m-1"><b>04:30</b> PM</h2>
+                            </span>
+                        </label>
+                    </div><!-- end col -->
+                </div><!-- end row -->
+            </div><!-- end select hour -->
+            <!-- NOTES / COMMENTS -->
+            <div class="schedule-add-comments px-4">
+                <h1 class="fs-16 fw-600 mt-4 mb-2">Notas o comentarios</h1>
+                <textarea class="w-100 p-3" name="description" rows="4" placeholder="Ingrese opcionalmente una nota o comentario"></textarea>
+            </div>
+            <!-- TOGGLE BUTTONS -->
+            <div class="schedule-add-toggle-buttons my-4 px-4">
+                <div class="d-flex justify-content-between align-items-center p-0 mb-3">
+                    <h2 class="fs-14 fw-700 m-0">Activar las notificaciones push</h2>
+                    <label class="switch">
+                        <input type="checkbox" name="">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <div class="d-flex justify-content-between align-items-center p-0 mb-3">
+                    <h2 class="fs-14 fw-700 m-0">Enviar notificaciones por correo</h2>
+                    <label class="switch">
+                        <input type="checkbox" name="">
+                        <span class="slider"></span>
+                    </label>
+                </div> 
+            </div>
+            <!-- BUTTONS "CONFIRM" AND "CANCEL" -->
+            <div class="schedule-add-buttons mb-4">
+                <button type="button" onclick="success()" class="button-black mb-3">Confirmar</button>
+                <button type="button" class="button-gray"><a href="schedule.html">Cancelar</a></button>
+            </div>
+        </div><!-- end div schedule add -->
+    </main>
+
+    <!-- NAVBAR -->
+    <footer id="navbar">
+        <!-- NOTIFICATIONS -->
+        <a href="notifications.html">
+            <img src="../assets/images/navbar-blanco-notificaciones.png" alt="">
+        </a>
+        <!-- CONTACTS -->
+        <a href="contacts.html">
+            <img src="../assets/images/navbar-blanco-contactos.png" alt="">
+        </a>
+        <!-- HOME -->
+        <a href="homepage.html">
+            <img src="../assets/images/navbar-blanco-inicio.png" alt="">
+        </a>
+        <!-- CALENDAR -->
+        <a href="calendar.html">
+            <img src="../assets/images/navbar-blanco-calendario.png" alt="">
+        </a>
+        <!-- PROFILE -->
+        <a href="profile.html">
+            <img src="../assets/images/navbar-dorado-perfil.png" alt="">
+        </a>
+    </footer>
+
+    <!-- JAVASCRIPT -->
+    <!-- Service worker PWA -->
+    <script src="../sw.js"></script>
+    <script src="../script.js"></script>
+    <script src="../assets/libs/bootstrap-5.2.3/bootstrap.min.js"></script>
+    <script src="../assets/js/jquery-3.6.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+    <script src="../assets/libs/owl-carousel-2.3.4/js/owl.carousel.min.js"></script>
+    <script src="../assets/js/owl-carousels.js"></script>
+    <script>
+        function success() {
+            Swal.fire({
+                type: "success",
+                text: "¡Se ha agendado la cita!",
+                confirmButtonText: "Aceptar",
+                confirmButtonColor: '#C39B62',
+            }).then((result) => {
+                location.reload()
+            });
+        }
+    </script>
+</body>
+</html>

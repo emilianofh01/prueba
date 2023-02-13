@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notificaciones</title>
+    <!-- TAB ICON -->
+    <link rel="icon" href="../assets/images/logo-dorado.png">
+    <!-- BOOTSTRAP 5.2.3 -->
+    <link rel="stylesheet" href="../assets/libs/bootstrap-5.2.3/bootstrap.min.css">
+    <!-- FONT AWESOME -->
+    <link rel="stylesheet" href="../assets/libs/fontawesome/css/all.min.css">
+    <!-- MAIN CSS -->
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <!-- PWA META TAGS -->
+    <meta name="theme-color" content="#1A1A1A">
+    <meta name="MobileOptimized" content="width">
+    <meta name="HandheldFriendly" content="true">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#1A1A1A">
+    <link rel="shortcut icon" type="image/png" href="../img/64x64.png">
+    <link rel="apple-touch-icon" href="../img/64x64.png">
+    <link rel="apple-touch-startup-image" href="../img/64x64.png">
+    <link rel="manifest" href="../manifest.json">
+</head>
+
+<body>
+    <div id="app" v-cloak>
+        <!-- HEADER WITH LOGO AND TITLE -->
+        <header id="header" class="header-logo-title p-1">
+            <div class="header-logo">
+                <img src="../assets/images/logo-dorado-margen.png" alt="">
+            </div>
+            <div class="header-title">
+                <h2 class="text-center fs-24 fw-700 m-0">Notificaciones</h2>
+            </div>
+            <div class="header-account me-2">
+                <a href="profile.html" class="d-flex justify-content-center align-items-center position-relative">
+                    <img style="overflow: hidden;" :src="`${datos.profile_photo_url ?? datos.userNameURL}`"
+                        @error="profileImageError" alt="">
+                    <span v-if="datos.notifications.pending_notifications"
+                        class="position-absolute translate-middle badge rounded-pill fw-700 fs-10 bgcolor-primary txtcolor-black">
+                        {{datos.notifications.pending_notifications}}
+                    </span>
+                </a>
+            </div>
+        </header>
+        <!-- MAIN CONTENT -->
+        <main v-if="notifications.length" class="container-fluid p-0">
+            <div class="list-notifications pt-4 px-4">
+
+                <h1 class="mb-3" v-if="notifications.filter(e => !e.pivot.seen).length">Notificaciones pendientes</h1>
+                <!-- CARD NOTIFICATION -->
+                <a href="" target="_blank" class="card-notification pt-3 px-3 pb-2 mb-3"
+                    v-for="notification in notifications.filter(e => !e.pivot.seen)">
+                    <div class="card-notification-icon me-2">
+                        <img src="../assets/images/icono-calendario.png" alt="">
+                    </div>
+                    <div class="card-notification-content">
+                        <h2 class="ff-raleway fs-12 fw-500 txtcolor-black m-0">
+                            <b>{{notification.title}}</b>
+                        </h2>
+                        <h3 class="ff-raleway fs-12 fw-500 txtcolor-black m-0">
+                            {{notification.description}}
+                        </h3>
+                        <!-- <small class="w-100 text-end ff-roboto pe-2">3 Min</small> -->
+                    </div>
+                </a><!-- end card notification -->
+
+                <h1 class="mb-3" v-if="notifications.filter(e => e.pivot.seen).length">Notificaciones leidas</h1>
+                <!-- CARD NOTIFICATION -->
+                <a href="" target="_blank" class="card-notification pt-3 px-3 pb-2 mb-3"
+                    v-for="notification in notifications.filter(e => e.pivot.seen)">
+                    <div class="card-notification-icon me-2">
+                        <img src="../assets/images/icono-calendario.png" alt="">
+                    </div>
+                    <div class="card-notification-content">
+                        <h2 class="ff-raleway fs-12 fw-500 txtcolor-black m-0">
+                            <b>{{notification.title}}</b>
+                        </h2>
+                        <h3 class="ff-raleway fs-12 fw-500 txtcolor-black m-0">
+                            {{notification.description}}
+                        </h3>
+                        <!-- <small class="w-100 text-end ff-roboto pe-2">3 Min</small> -->
+                    </div>
+                </a><!-- end card notification -->
+
+                <!-- BUTTON CLEAR NOTIFICATIONS -->
+                <button v-if="notifications.filter(e => !e.pivot.seen).length" @click="markAsSeen" type="button"
+                    class="btn-clear-notifications d-flex align-items-center">
+                    <p class="m-0">Limpiar bandeja</p>
+                </button>
+            </div>
+        </main>
+
+        <!-- MAIN CONTENT -->
+        <main v-if="!notifications.length && loaded" class="container-fluid p-0 m-0">
+            <div class="notifications-empty px-4">
+                <img src="../assets/images/icono-notificaciones-vacias.png" class="mb-4" alt="">
+                <h1 class="ff-raleway fs-20 fw-500 txtcolor-black">
+                    ¡No tienes notificaciones en estos momentos!
+                </h1>
+            </div>
+        </main>
+
+        <!-- NAVBAR -->
+        <footer id="navbar">
+            <!-- NOTIFICATIONS -->
+            <a href="notifications.html">
+                <img src="../assets/images/navbar-dorado-notificaciones.png" alt="">
+            </a>
+            <!-- CONTACTS -->
+            <a href="contacts.html">
+                <img src="../assets/images/navbar-blanco-contactos.png" alt="">
+            </a>
+            <!-- HOME -->
+            <a href="homepage.html">
+                <img src="../assets/images/navbar-blanco-inicio.png" alt="">
+            </a>
+            <!-- CALENDAR -->
+            <a href="calendar.html">
+                <img src="../assets/images/navbar-blanco-calendario.png" alt="">
+            </a>
+            <!-- PROFILE -->
+            <a href="profile.html">
+                <img src="../assets/images/navbar-blanco-perfil.png" alt="">
+            </a>
+        </footer>
+    </div>
+
+
+    <!-- JAVASCRIPT -->
+    <!-- Service worker PWA -->
+    <script src="../sw.js"></script>
+    <script src="../script.js"></script>
+    <script src="../assets/libs/bootstrap-5.2.3/bootstrap.min.js"></script>
+    <script src="../assets/js/jquery-3.6.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+    <script>
+        const { createApp } = Vue
+        const data = null;
+        const error = null;
+        createApp({
+            data() {
+                return {
+                    datos: JSON.parse(window.localStorage.getItem('usuario')),
+                    notifications: [],
+                    loaded: false
+                }
+            },
+            methods: {
+                profileImageError(event) {
+                    event.target.src = this.datos.urlAvatar;
+                },
+                async markAsSeen() {
+                    let { data: res } = await axios({
+                        method: 'POST',
+                        url: 'https://rv.devcobaja.com/api/notifications/all/mark-as-seen',
+                        headers: {
+                            'Authorization': `Bearer ${this.datos.token}`,
+                        },
+                    })
+
+                    if (res == 200) {
+                        this.loadNotifications();
+                        console.log(res)
+                        return;
+                    }else{
+                        window.location.href="error-connection.html"
+                    }
+
+                    console.log(res)
+                },
+                async loadNotifications() {
+                    if (navigator.onLine) {
+                        let { data: res } = await axios({
+                            url: "https://rv.devcobaja.com/api/notifications",
+                            headers: {
+                                'Authorization': `Bearer ${this.datos.token}`,
+                            },
+                            method: "get"
+                        })
+    
+                        let { data } = res;
+    
+                        this.notifications = data;
+                        this.updateLocalNotifications()
+                        this.loaded = true;
+                    } else {
+                        window.location.href="error-connection.html"
+                    }
+                },
+                updateLocalNotifications() {
+                    if (navigator.onLine) {
+                        window.localStorage.clear()
+    
+                        this.datos.notifications.pending_notifications = this.notifications.filter(e => !e.pivot.seen).length;
+                        this.datos.notifications.last_request_date = Date.now()
+                        console.log(this.datos)
+    
+                        window.localStorage.setItem('usuario', JSON.stringify(this.datos))                        
+                    } else {
+                        window.location.href="error-connection.html"
+                    }
+                }
+            },
+            mounted() {
+                this.loadNotifications()
+            }
+        }).mount('#app')
+    </script>
+</body>
+
+</html>

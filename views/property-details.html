@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalles de la propiedad</title>
+    <!-- TAB ICON -->
+    <link rel="icon" href="../assets/images/logo-dorado.png">
+    <!-- BOOTSTRAP 5.2.3 -->
+    <link rel="stylesheet" href="../assets/libs/bootstrap-5.2.3/bootstrap.min.css">
+    <!-- FONT AWESOME -->
+    <link rel="stylesheet" href="../assets/libs/fontawesome/css/all.min.css">
+    <!-- OWL CAROUSEL 2.3.4 -->
+    <link rel="stylesheet" href="../assets/libs/owl-carousel-2.3.4/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="../assets/libs/owl-carousel-2.3.4/css/owl.theme.default.min.css">
+    <!-- MAGNIFIC POPUP -->
+    <link rel="stylesheet" href="../assets/libs/magnific-popup/magnific-popup.css">
+    <!-- MAIN CSS -->
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <!-- PWA META TAGS -->
+    <meta name="theme-color" content="#1A1A1A">
+    <meta name="MobileOptimized" content="width">
+    <meta name="HandheldFriendly" content="true">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#1A1A1A">
+    <link rel="shortcut icon" type="image/png" href="../img/64x64.png">
+    <link rel="apple-touch-icon" href="../img/64x64.png">
+    <link rel="apple-touch-startup-image" href="../img/64x64.png">
+    <link rel="manifest" href="../manifest.json">
+</head>
+
+<body>
+    <div id="app" v-cloak>
+        <!-- HEADER WITH RETURN AND TITLE -->
+        <header id="header" class="p-1">
+            <div class="header-return ms-2">
+                <a href="homepage.html" class="fs-24">
+                    <i class="fa-solid fa-arrow-left"></i>
+                </a>
+            </div>
+            <div class="header-title">
+                <h2 class="text-center fs-18 fw-700 m-0">Detalles de la propiedad</h2>
+            </div>
+            <div class="header-account me-2">
+                <a href="profile.html" class="d-flex justify-content-center align-items-center position-relative">
+                    <img style="overflow: hidden;" :src="`${datos.profile_photo_url ?? datos.userNameURL}`" @error="profileImageError" alt="">
+                    <span v-if="datos.notifications.pending_notifications"
+                        class="position-absolute translate-middle badge rounded-pill fw-700 fs-10 bgcolor-primary txtcolor-black">
+                        {{datos.notifications.pending_notifications}}
+                    </span>
+                </a>
+            </div>
+        </header>
+
+        <!-- MAIN CONTENT -->
+        <main class="container-fluid p-0">
+            <!-- PROPERTY DETAILS CAROUSEL -->
+            <div class="carousel-propierty-main">
+                <div class="owl-property-main-preview owl-carousel owl-theme">
+                    <div v-for="image in info.images" class="item">
+                        <img :src="image.full_path" class="" alt="">
+                    </div>
+                </div>
+            </div><!-- end carousel property details -->
+            <!-- PROPERTY DETAILS CONTENT -->
+            <div class="property-details-content px-4 py-3">
+                <!-- TITLE -->
+                <div class="property-details-title mb-2">
+                    <h1 class="ff-roboto fs-24 fw-700 txtcolor-black m-0">
+                        {{info.name}}
+                    </h1>
+                    <!-- Componente corazon -->
+                    <button @click="giveLove({index: `${index}`})" type="button" class="heart-toggle ms-2">
+                        <i :class="`${info.love == true ? 'fas' : ''} far fa-heart`"></i>
+                    </button>
+                </div><!-- end title -->
+                <!-- LOCATION -->
+                <div class="property-details-location d-flex w-100 mb-3">
+                    <i class="fa-solid fa-map-pin fs-18 txtcolor-black me-2"></i>
+                    <h2 class="ff-roboto fs-16 fw-500 txtcolor-black">
+                        Col. Fidepaz, La Paz, B.C.S.
+                    </h2>
+                </div><!-- end location -->
+                <!-- FEATURES -->
+                <div class="property-details-features mb-4">
+                    <div class="d-flex flex-column">
+                        <h3 class="fs-14 fw-500">Habitaciones</h3>
+                        <div class="d-flex justify-content-center fs-16">
+                            <h4 class="fs-16">
+                                <i class="fa-solid fa-bed me-2"></i>4
+                            </h4>
+                        </div>
+                    </div>
+                    <span></span>
+                    <div class="d-flex flex-column">
+                        <h3 class="fs-14 fw-500">Baños</h3>
+                        <div class="d-flex justify-content-center">
+                            <h4 class="fs-16">
+                                <i class="fa-solid fa-bath me-2"></i>3
+                            </h4>
+                        </div>
+                    </div>
+                    <span></span>
+                    <div class="d-flex flex-column">
+                        <h3 class="fs-14 fw-500">Estacionamientos</h3>
+                        <div class="d-flex justify-content-center fs-16">
+                            <h4 class="fs-16">
+                                <i class="fa-solid fa-car me-2"></i> 2
+                            </h4>
+                        </div>
+                    </div>
+                </div><!-- end features -->
+                <!-- DESCRIPTION -->
+                <div class="property-details-description d-flex flex-column mb-4">
+                    <h2 class="ff-roboto fs-18 fw-700 txtcolor-black mb-2">Detalles de la propiedad</h2>
+                    <div v-html="info.description" class="ff-raleway fs-16 fw-500 txtcolor-gray text-justify m-0">
+                        <!-- No insertar nada aqui :) -->
+                    </div>
+                </div><!-- end description -->
+                <!-- GALLERY -->
+                <div class="property-details-gallery mb-4">
+                    <h2 class="ff-roboto fs-18 fw-700 txtcolor-black">Galería</h2>
+                    <!-- CAROUSEL PROPERTY DETAILS GALLERY -->
+                    <div class="carousel-property-gallery">
+                        <div class="owl-property-gallery owl-carousel owl-theme popup-gallery">
+                            <div class="item" v-for="image in info.images">
+                                <a :href="image.full_path" title="">
+                                    <img :src="image.full_path" alt="">
+                                </a>
+                            </div>
+                        </div>
+                    </div><!-- end carousel property details gallery -->
+                </div><!-- end gallery -->
+                <!-- MAPS -->
+                <div class="property-details-gallery mb-4">
+                    <h2 class="ff-roboto fs-18 fw-700 txtcolor-black">Ubicación</h2>
+                    <!-- CAROUSEL PROPERTY DETAILS GALLERY -->
+                    <div class="">
+                        <iframe class="w-100" :src="`${info.google_maps_url}`" frameborder="0">
+
+                        </iframe>
+                    </div><!-- end carousel property details gallery -->
+                </div><!-- end gallery -->
+                <!-- PRICE -->
+                <div class="property-details-price mb-4">
+                    <h2 class="ff-roboto fs-18 fw-700 txtcolor-black">Precio</h2>
+                    <h3 v-for="price in info.prices" class="ff-raleway fs-24 fw-700 txtcolor-primary">${{price.amount}} {{price.exchange.name}}</h3>
+                </div><!-- end price -->
+                <!-- INTERESTED CUSTOMERS -->
+                <div class="property-details-customers mb-3">
+                    <h2 class="ff-roboto fs-18 fw-700 txtcolor-black mb-3">Clientes interesados</h2>
+                    <div class="row px-2">
+                        <!-- CUSTOMER CARD -->
+                        <div class="card-customer-small-info p-2 mb-2 col-12 col-xs-6">
+                            <div class="d-flex align-items-center">
+                                <img src="../assets/images/profile-person1.png" class="box-shadow-25 ms-1 me-3" alt="">
+                                <div class="d-flex flex-column justify-content-center">
+                                    <h2 class="ff-raleway fs-14 fw-700 mb-1">
+                                        María Cruz Vega
+                                    </h2>
+                                    <h3 class="ff-raleway fs-14 fw-400 m-0">
+                                        <i class="fa-solid fa-location-dot"></i>
+                                        La Paz, B.C.S.
+                                    </h3>
+                                </div>
+                            </div>
+                            <a href="profile-customer.html" class="ff-raleway mx-2">
+                                Ver perfil <i class="fa-solid fa-arrow-up-right-from-square ms-1"></i>
+                            </a>
+                        </div><!-- end customer card -->
+                        <!-- CUSTOMER CARD -->
+                        <div class="card-customer-small-info p-2 mb-2 col-12 col-xs-6">
+                            <div class="d-flex align-items-center">
+                                <img src="../assets/images/profile-person2.png" class="box-shadow-25 ms-1 me-3" alt="">
+                                <div class="d-flex flex-column justify-content-center">
+                                    <h2 class="ff-raleway fs-14 fw-700 mb-1">
+                                        Juan M. Flores Cota
+                                    </h2>
+                                    <h3 class="ff-raleway fs-14 fw-400 m-0">
+                                        <i class="fa-solid fa-location-dot"></i>
+                                        La Paz, B.C.S.
+                                    </h3>
+                                </div>
+                            </div>
+                            <a href="profile-customer.html" class="ff-raleway mx-2">
+                                Ver perfil <i class="fa-solid fa-arrow-up-right-from-square ms-1"></i>
+                            </a>
+                        </div><!-- end customer card -->
+                        <!-- CUSTOMER CARD -->
+                        <div class="card-customer-small-info p-2 mb-2 col-12 col-xs-6">
+                            <div class="d-flex align-items-center">
+                                <img src="../assets/images/profile-person4.png" class="box-shadow-25 ms-1 me-3" alt="">
+                                <div class="d-flex flex-column justify-content-center">
+                                    <h2 class="ff-raleway fs-14 fw-700 mb-1">
+                                        Alfredo Meza Lopez
+                                    </h2>
+                                    <h3 class="ff-raleway fs-14 fw-400 m-0">
+                                        <i class="fa-solid fa-location-dot"></i>
+                                        Los Cabos, B.C.S.
+                                    </h3>
+                                </div>
+                            </div>
+                            <a href="profile-customer.html" class="ff-raleway mx-2">
+                                Ver perfil <i class="fa-solid fa-arrow-up-right-from-square ms-1"></i>
+                            </a>
+                        </div><!-- end customer card -->
+                    </div>
+                </div><!-- end interested customers -->
+            </div>
+        </main>
+
+        <!-- NAVBAR -->
+        <footer id="navbar">
+            <!-- SCHEDULE -->
+            <a href="notifications.html">
+                <img src="../assets/images/navbar-blanco-notificaciones.png" alt="">
+            </a>
+            <!-- CONTACTS -->
+            <a href="contacts.html">
+                <img src="../assets/images/navbar-blanco-contactos.png" alt="">
+            </a>
+            <!-- HOME -->
+            <a href="homepage.html">
+                <img src="../assets/images/navbar-dorado-inicio.png" alt="">
+            </a>
+            <!-- CALENDAR -->
+            <a href="calendar.html">
+                <img src="../assets/images/navbar-blanco-calendario.png" alt="">
+            </a>
+            <!-- PROFILE -->
+            <a href="profile.html">
+                <img src="../assets/images/navbar-blanco-perfil.png" alt="">
+            </a>
+        </footer>
+    </div>
+
+    <!-- JAVASCRIPT -->
+    <!-- Service worker PWA -->
+    <script src="../sw.js"></script>
+    <script src="../script.js"></script>
+    <script src="../assets/libs/bootstrap-5.2.3/bootstrap.min.js"></script>
+    <script src="../assets/js/jquery-3.6.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+    <script src="../assets/libs/owl-carousel-2.3.4/js/owl.carousel.min.js"></script>
+    <!-- <script src="../assets/js/owl-carousels.js"></script> -->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="../assets/libs/magnific-popup/jquery.magnific-popup.min.js"></script>
+    <!-- <script src="../assets/js/lightbox.init.js"></script> -->
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script>
+        const { createApp } = Vue
+        const data = null;
+        const error = null;
+        createApp({
+            data() {
+                return {
+                    datos: JSON.parse(window.localStorage.getItem('usuario')),
+                    info: {},
+                    scriptDirArray: [
+                        // "../assets/libs/owl-carousel-2.3.4/js/owl.carousel.min.js",
+                        "../assets/js/owl-carousels.js",
+                        // "../assets/libs/magnific-popup/jquery.magnific-popup.min.js",
+                        "../assets/js/lightbox.init.js"
+                    ],
+                    loaded: false
+                }
+            },
+            methods: {
+                profileImageError(event) {        
+                    event.target.src = this.datos.urlAvatar;
+                },
+                loadInfo() {
+                    const queryString = window.location.search;
+                    const urlParams = new URLSearchParams(queryString);
+
+                    axios({
+                        method: 'get',
+                        url: `https://rv.devcobaja.com/api/properties/${urlParams.get('property')}`,
+                        headers: {
+                            'Authorization': `Bearer ${this.datos.token}`,
+                        }
+                    })
+                        .then((response) => {
+                            let { data } = response.data
+                            this.info = data;
+                            console.log(this.info)
+                        })
+                        .catch((error) => {
+                            console.log(error);
+                        });
+
+                },
+
+                mountScript({ scriptDir = Array, container = HTMLScriptElement }) {
+                    scriptDir.map(obj => {
+                        let element = document.createElement('script');
+                        element.setAttribute('src', obj);
+                        container.appendChild(element)
+                    })
+                },
+
+                async giveLove() {
+                    let form = new FormData();
+                    let url = this.info.love ? 'https://rv.devcobaja.com/api/properties/remove-like' : "https://rv.devcobaja.com/api/properties/like"
+                    form.append('property_id', this.info.id);
+
+                    let { data: res } = await axios(this.getConfig({ url: url, method: 'post', data: form }))
+
+                    if (res.code == 200) {
+                        this.info.love = !this.info.love;
+                    }
+                },
+
+                getConfig({ url = String, data = FormData, method = String }) {
+                    return {
+                        method: method,
+                        url: url,
+                        data: data,
+                        headers: {
+                            'Authorization': `Bearer ${this.datos.token}`,
+                        },
+                    };
+                },
+
+            },
+            mounted() {
+                this.loadInfo();
+                // this.mountScript({
+                //     scriptDir: this.scriptDirArray,
+                //     container: document.body
+                // });
+
+            },
+
+            updated() {
+                if(!this.loaded) {
+                    this.mountScript({
+                        scriptDir: this.scriptDirArray,
+                        container: document.body
+                    });
+                    this.loaded = true;
+                }
+            }
+
+        }).mount('#app')
+    </script>
+</body>
+
+</html>

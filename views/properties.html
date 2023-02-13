@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Propiedades</title>
+    <!-- TAB ICON -->
+    <link rel="icon" href="../assets/images/logo-dorado.png">
+    <!-- BOOTSTRAP 5.2.3 -->
+    <link rel="stylesheet" href="../assets/libs/bootstrap-5.2.3/bootstrap.min.css">
+    <!-- FONT AWESOME -->
+    <link rel="stylesheet" href="../assets/libs/fontawesome/css/all.min.css">
+    <!-- MAIN CSS -->
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <!-- PWA META TAGS -->
+    <meta name="theme-color" content="#1A1A1A">
+    <meta name="MobileOptimized" content="width">
+    <meta name="HandheldFriendly" content="true">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#1A1A1A">
+    <link rel="shortcut icon" type="image/png" href="../img/64x64.png">
+    <link rel="apple-touch-icon" href="../img/64x64.png">
+    <link rel="apple-touch-startup-image" href="../img/64x64.png">
+    <link rel="manifest" href="../manifest.json">
+</head>
+<body>
+    <div id="app" v-cloak>
+        <!-- HEADER WITH LOGO AND TITLE -->
+        <header id="header" class="header-logo-title p-1">
+            <div class="header-logo">
+                <img src="../assets/images/logo-dorado-margen.png" alt="">
+            </div>
+            <div class="header-title">
+                <h2 class="text-center fs-22 fw-700 m-0">Propiedades</h2>
+            </div>
+            <div class="header-account me-2">
+                <a href="profile.html" class="d-flex justify-content-center align-items-center position-relative">
+                    <img src="../assets/images/profile-pic.png" alt="">
+                    <span class="position-absolute translate-middle badge rounded-pill fw-700 fs-10 bgcolor-primary txtcolor-black">
+                        3
+                    </span>
+                </a>
+            </div>
+        </header>
+    
+        <!-- MAIN CONTENT -->
+        <div>
+    
+            <main class="container-fluid p-0">
+                <!-- SEARCH BAR -->
+                <div class="search-bar p-4">
+                    <form action="" method="" class="d-flex">
+                        <button type="submit">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </button>
+                        <input type="text" name="" class="px-1" placeholder="Buscar propiedad">
+                    </form>
+                    <button type="button" onclick="" class="search-bar-filter">
+                        <img src="../assets/images/icono-filtros.png" alt="">
+                    </button>
+                </div><!-- end search bar -->
+                <!-- LIST PROPERTIES -->
+                <div class="list-properties px-4 py-2" >
+                    <div class="row">
+                        <!-- BIG CARD -->
+                        <div class="card-home-big col-12 col-xs-6 col-sm-6 col-md-4 col-lg-3 mb-4" v-for="(propertie, index) in properties">
+                           
+                            <div class="rounded-4 box-shadow-25" v-for="prop in propertie.properties">
+                                <div class="card-home-big-preview">
+                                    <img src="../assets/images/home-demo2.png" alt="">
+                                    <div class="card-home-big-extras">
+                                        <span class="badge-label badge-label-primary"> {{prop.status === 'activo' ? 'Disponible' : 'No Disponible' }} </span>
+                                        <button type="button" class="heart-toggle heart-toggle-transparent me-2">
+                                            <i class="far fa-heart"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="card-home-big-description px-2">
+                                    <div class="d-flex justify-content-between py-2 mb-1">
+                                        <h2 class="ff-raleway fs-18 fw-700 m-0">{{prop.name}}</h2>
+                                        <div class="card-home-features ms-2">
+                                            <i class="fa-solid fa-bed"></i>
+                                            <h4 class="ff-roboto fs-16 fw-700 txtcolor-black mx-2 my-0">4</h4>
+                                            <i class="fa-solid fa-bath"></i>
+                                            <h4 class="ff-roboto fs-16 fw-700 txtcolor-black mx-2 my-0">3</h4>
+                                            <i class="fa-solid fa-car"></i>
+                                            <h4 class="ff-roboto fs-16 fw-700 txtcolor-black mx-2 my-0">2</h4>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex w-100">
+                                        <i class="fa-solid fa-location-dot fs-14 me-2"></i>
+                                        <h3 class="ff-raleway fs-12 fw-500 txtcolor-black m-0">
+                                            {{prop.address.street}} {{prop.address.number}}, 
+                                            {{prop.address.apartment}}, {{prop.address.postal_code}}, {{prop.address.city}}, 
+                                            {{prop.address.state}}, {{prop.address.lot}}, {{prop.address.block}}
+                                        </h3>
+                                    </div>
+                                    <div class="d-flex flex-wrap justify-content-between py-2 mb-1">
+                                        <h2 class="ff-raleway fs-22 fw-700 txtcolor-primary mb-2">$60,000,000.00</h2>
+                                        <a href="property-details.html" class="bgcolor-white txtcolor-primary border-2-primary fs-14 fw-700 mx-2">Detalles</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div><!-- end big card --><!-- end big card -->
+                    </div><!-- end row -->
+                </div><!-- end div list properties -->
+                <!-- ADD BUTTON -->
+                <a href="property-add.html" class="add-button box-shadow-25">
+                    <i class="fa-solid fa-plus"></i>
+                </a>
+            </main>
+        </div>
+    </div>
+
+    <!-- NAVBAR -->
+    <footer id="navbar">
+        <!-- SCHEDULE -->
+        <a href="notifications.html">
+            <img src="../assets/images/navbar-blanco-notificaciones.png" alt="">
+        </a>
+        <!-- CONTACTS -->
+        <a href="contacts.html">
+            <img src="../assets/images/navbar-blanco-contactos.png" alt="">
+        </a>
+        <!-- HOME -->
+        <a href="homepage.html">
+            <img src="../assets/images/navbar-dorado-inicio.png" alt="">
+        </a>
+        <!-- CALENDAR -->
+        <a href="calendar.html">
+            <img src="../assets/images/navbar-blanco-calendario.png" alt="">
+        </a>
+        <!-- PROFILE -->
+        <a href="profile.html">
+            <img src="../assets/images/navbar-blanco-perfil.png" alt="">
+        </a>
+    </footer>
+
+    <!-- JAVASCRIPT -->
+    <!-- Service worker PWA -->
+    <script src="../sw.js"></script>
+    <script src="../script.js"></script>
+    <script src="../assets/libs/bootstrap-5.2.3/bootstrap.min.js"></script>
+    <script src="../assets/js/jquery-3.6.1.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="../assets/js/toggle-heart.js"></script>
+    <!-- Enlazar vuejs -->
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <!-- Axios -->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+    <script>
+        const { createApp } = Vue
+        const data = null;
+        const error = null;
+        createApp({
+            data() {
+                    return {
+                        datos: JSON.parse(window.localStorage.getItem('usuario')),
+                        properties: {}
+                    }
+                },
+                methods: {
+                    loadProperties(){
+                        var flag = this;
+                        var config = {
+                        method: 'get',
+                        url: 'https://rv.devcobaja.com/api/properties',
+                        headers: { 
+                            'Authorization': `Bearer ${this.datos.token}`, 
+                        }
+                        };
+
+                        axios(config)
+                        .then(function (response) {
+                            flag.properties = response.data.data
+                            // console.log(flag.properties);
+                        })
+                        .catch(function (error) {
+                            console.log(error);
+                        });
+                                            }
+
+                },
+                mounted(){
+                    this.loadProperties();
+                }
+        }).mount('#app')
+    </script>
+</body>
+</html>

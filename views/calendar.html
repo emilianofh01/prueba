@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calendario</title>
+    <!-- TAB ICON -->
+    <link rel="icon" href="../assets/images/logo-dorado.png">
+    <!-- BOOTSTRAP 5.2.3 -->
+    <link rel="stylesheet" href="../assets/libs/bootstrap-5.2.3/bootstrap.min.css">
+    <!-- FONT AWESOME -->
+    <link rel="stylesheet" href="../assets/libs/fontawesome/css/all.min.css">
+    <!-- MAIN CSS -->
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <!-- PWA META TAGS -->
+    <meta name="theme-color" content="#1A1A1A">
+    <meta name="MobileOptimized" content="width">
+    <meta name="HandheldFriendly" content="true">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#1A1A1A">
+    <link rel="shortcut icon" type="image/png" href="../img/64x64.png">
+    <link rel="apple-touch-icon" href="../img/64x64.png">
+    <link rel="apple-touch-startup-image" href="../img/64x64.png">
+    <link rel="manifest" href="../manifest.json">
+</head>
+
+<body>
+    <div id="app" v-cloak>
+
+        <!-- HEADER WITH LOGO AND TITLE -->
+        <header id="header" class="header-logo-title p-1">
+            <div class="header-logo">
+                <img src="../assets/images/logo-dorado-margen.png" alt="">
+            </div>
+            <div class="header-title">
+                <h2 class="text-center fs-24 fw-700 txtcolor-primary m-0">Calendario</h2>
+            </div>
+            <div class="header-account me-2">
+                <a href="profile.html" class="d-flex justify-content-center align-items-center position-relative">
+                    <img src="../assets/images/profile-pic.png" alt="">
+                    <span
+                        class="position-absolute translate-middle badge rounded-pill fw-700 fs-10 bgcolor-primary txtcolor-black">
+                        3
+                    </span>
+                </a>
+            </div>
+        </header>
+    
+        <!-- MAIN CONTENT -->
+        <main class="container-fluid p-0">
+            <!-- SEARCH BAR -->
+            <div class="search-bar search-bar-alt p-4">
+                <form action="" method="" class="d-flex">
+                    <button type="submit">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </button>
+                    <input type="text" name="" class="px-1" placeholder="Buscar cita">
+                </form>
+            </div><!-- end search bar -->
+    
+            <!-- CALENDAR -->
+            <div class="px-4 mb-4">
+                <div class="row">
+                    <div class="col-md-12 ff-raleway">
+                        <div v-if="loaded" class="elegant-calendar d-md-flex">
+                            <div class="wrap-header d-flex align-items-center">
+                                <p id="reset" class="d-none">reset</p>
+                                <div id="headerCalendar" class="p-0">
+                                    <div class="pre-button d-flex align-items-center justify-content-center"><i
+                                            class="fa fa-chevron-left"></i></div>
+                                    <div class="head-info">
+                                        <div class="head-day"></div>
+                                        <div class="head-month"></div>
+                                    </div>
+                                    <div class="next-button d-flex align-items-center justify-content-center"><i
+                                            class="fa fa-chevron-right"></i></div>
+                                </div>
+                            </div>
+                            <div class="calendar-wrap">
+                                <!-- 
+                                    NOTA: 
+                                    - PARA PODER MODIFICAR LOS DÍAS MARCADOS AL CAMBIAR DE MES ES NECESARIO MODIFICAR EL JS
+                                    - LA CLASE PARA MARCAR EL DÍA CON CITAS ES: .scheduled-day
+                                 -->
+                                <table id="calendar">
+                                    <thead>
+                                        <tr class="calendar-headers">
+                                            <th>Dom</th>
+                                            <th>Lun</th>
+                                            <th>Mar</th>
+                                            <th>Mie</th>
+                                            <th>Jue</th>
+                                            <th>Vie</th>
+                                            <th>Sab</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td class="scheduled-day"></td>
+                                            <td class="scheduled-day"></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td class="scheduled-day"></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td class="scheduled-day"></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="scheduled-day"></td>
+                                            <td class="scheduled-day"></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td class="scheduled-day"></td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div><!-- end calendar wrap -->
+                        </div><!-- end elegant calendar -->
+                    </div><!-- end col -->
+                </div><!-- end row -->
+            </div><!-- end div calendar -->
+    
+            <!-- NEXT DATES (APPOINTMENTS) -->
+            <div class="px-4 pt-3 pb-4">
+                <div class="row">
+                    <h2 class="ff-raleway fs-24 fw-700 mb-3">Próximas citas</h2>
+                    <!-- CARD DATE -->
+                    <div class="col-12 col-md-6 col-lg-4 col-xl-4 col-xxl-3 mb-3">
+                        <div class="card-date p-3">
+                            <div class="d-flex w-100 mb-2">
+                                <div class="card-date-content">
+                                    <h1 class="fs-18 fw-700 text-center">Casa Miramar</h1>
+                                    <div class="d-flex mb-1">
+                                        <label>Cliente:</label>
+                                        <h2 class="fst-italic fs-14 fw-400 m-0">Juan M. Flores Cota</h2>
+                                    </div>
+                                    <div class="d-flex mb-1">
+                                        <label>Fecha:</label>
+                                        <h2 class="fst-normal fs-14 fw-400 m-0">05/01/2023</h2>
+                                    </div>
+                                    <div class="d-flex">
+                                        <label>Hora:</label>
+                                        <h2 class="fst-normal fs-14 fw-700 m-0">10:30 AM</h2>
+                                    </div>
+                                </div>
+                                <div class="card-date-preview ms-2">
+                                    <img src="../assets/images/home-demo1.png" alt="">
+                                </div>
+                            </div>
+                            <div class="card-date-buttons w-100 pt-1">
+                                <div class="card-date-btn-details">
+                                    <a href="schedule-details.html" class="fs-14 fw-700">Detalles</a>
+                                </div>
+                                <div class="card-date-btn-contact">
+                                    <a
+                                        href="https://www.google.com/maps/search/?api=1&query=24.16122423600197,-110.31834537020787"><i
+                                            class="fa-solid fa-location-dot"></i></a>
+                                    <a href="tel:526123480678"><i class="fa-solid fa-phone"></i></a>
+                                    <a href="sms:526123480678"><i class="fa-solid fa-comment-dots"></i></a>
+                                </div>
+                            </div>
+                        </div><!-- end card date -->
+                    </div><!-- end col card date -->
+                    <!-- CARD DATE -->
+                    <div class="col-12 col-md-6 col-lg-4 col-xl-4 col-xxl-3 mb-3">
+                        <div class="card-date p-3">
+                            <div class="d-flex w-100 mb-2">
+                                <div class="card-date-content">
+                                    <h1 class="fs-18 fw-700 text-center">Casa Perla del Golfo</h1>
+                                    <div class="d-flex mb-1">
+                                        <label>Cliente:</label>
+                                        <h2 class="fst-italic fs-14 fw-400 m-0">Francisco Rodríguez Martinez</h2>
+                                    </div>
+                                    <div class="d-flex mb-1">
+                                        <label>Fecha:</label>
+                                        <h2 class="fst-normal fs-14 fw-400 m-0">09/01/2023</h2>
+                                    </div>
+                                    <div class="d-flex">
+                                        <label>Hora:</label>
+                                        <h2 class="fst-normal fs-14 fw-700 m-0">11:30 AM</h2>
+                                    </div>
+                                </div>
+                                <div class="card-date-preview ms-2">
+                                    <img src="../assets/images/home-demo2.png" alt="">
+                                </div>
+                            </div>
+                            <div class="card-date-buttons w-100 pt-1">
+                                <div class="card-date-btn-details">
+                                    <a href="schedule-details.html" class="fs-14 fw-700">Detalles</a>
+                                </div>
+                                <div class="card-date-btn-contact">
+                                    <a
+                                        href="https://www.google.com/maps/search/?api=1&query=24.16122423600197,-110.31834537020787"><i
+                                            class="fa-solid fa-location-dot"></i></a>
+                                    <a href="tel:526123480678"><i class="fa-solid fa-phone"></i></a>
+                                    <a href="sms:526123480678"><i class="fa-solid fa-comment-dots"></i></a>
+                                </div>
+                            </div>
+                        </div><!-- end card date -->
+                    </div><!-- end col card date -->
+                    <!-- CARD DATE -->
+                    <div class="col-12 col-md-6 col-lg-4 col-xl-4 col-xxl-3 mb-3">
+                        <div class="card-date p-3">
+                            <div class="d-flex w-100 mb-2">
+                                <div class="card-date-content">
+                                    <h1 class="fs-18 fw-700 text-center">Casa Progreso</h1>
+                                    <div class="d-flex mb-1">
+                                        <label>Cliente:</label>
+                                        <h2 class="fst-italic fs-14 fw-400 m-0">Daniel Ramos Salazar</h2>
+                                    </div>
+                                    <div class="d-flex mb-1">
+                                        <label>Fecha:</label>
+                                        <h2 class="fst-normal fs-14 fw-400 m-0">09/01/2023</h2>
+                                    </div>
+                                    <div class="d-flex">
+                                        <label>Hora:</label>
+                                        <h2 class="fst-normal fs-14 fw-700 m-0">04:30 PM</h2>
+                                    </div>
+                                </div>
+                                <div class="card-date-preview ms-2">
+                                    <img src="../assets/images/home-demo3.png" alt="">
+                                </div>
+                            </div>
+                            <div class="card-date-buttons w-100 pt-1">
+                                <div class="card-date-btn-details">
+                                    <a href="schedule-details.html" class="fs-14 fw-700">Detalles</a>
+                                </div>
+                                <div class="card-date-btn-contact">
+                                    <a
+                                        href="https://www.google.com/maps/search/?api=1&query=24.16122423600197,-110.31834537020787"><i
+                                            class="fa-solid fa-location-dot"></i></a>
+                                    <a href="tel:526123480678"><i class="fa-solid fa-phone"></i></a>
+                                    <a href="sms:526123480678"><i class="fa-solid fa-comment-dots"></i></a>
+                                </div>
+                            </div>
+                        </div><!-- end card date -->
+                    </div><!-- end col card date -->
+                    <!-- CARD DATE -->
+                    <div class="col-12 col-md-6 col-lg-4 col-xl-4 col-xxl-3 mb-3">
+                        <div class="card-date p-3">
+                            <div class="d-flex w-100 mb-2">
+                                <div class="card-date-content">
+                                    <h1 class="fs-18 fw-700 text-center">Casa Paraíso del Sol</h1>
+                                    <div class="d-flex mb-1">
+                                        <label>Cliente:</label>
+                                        <h2 class="fst-italic fs-14 fw-400 m-0">Sofía Peña Aviles</h2>
+                                    </div>
+                                    <div class="d-flex mb-1">
+                                        <label>Fecha:</label>
+                                        <h2 class="fst-normal fs-14 fw-400 m-0">09/01/2023</h2>
+                                    </div>
+                                    <div class="d-flex">
+                                        <label>Hora:</label>
+                                        <h2 class="fst-normal fs-14 fw-700 m-0">04:30 PM</h2>
+                                    </div>
+                                </div>
+                                <div class="card-date-preview ms-2">
+                                    <img src="../assets/images/home-demo5.png" alt="">
+                                </div>
+                            </div>
+                            <div class="card-date-buttons w-100 pt-1">
+                                <div class="card-date-btn-details">
+                                    <a href="schedule-details.html" class="fs-14 fw-700">Detalles</a>
+                                </div>
+                                <div class="card-date-btn-contact">
+                                    <a
+                                        href="https://www.google.com/maps/search/?api=1&query=24.16122423600197,-110.31834537020787"><i
+                                            class="fa-solid fa-location-dot"></i></a>
+                                    <a href="tel:526123480678"><i class="fa-solid fa-phone"></i></a>
+                                    <a href="sms:526123480678"><i class="fa-solid fa-comment-dots"></i></a>
+                                </div>
+                            </div>
+                        </div><!-- end card date -->
+                    </div><!-- end col card date -->
+                </div><!-- end row -->
+            </div><!-- end div next dates (appointments)  -->
+    
+            <!-- ADD BUTTON -->
+            <a href="schedule-add.html" class="add-button box-shadow-25">
+                <i class="fa-solid fa-plus"></i>
+            </a>
+        </main>
+    
+        <!-- NAVBAR -->
+        <footer id="navbar">
+            <!-- NOTIFICATIONS -->
+            <a href="notifications.html">
+                <img src="../assets/images/navbar-blanco-notificaciones.png" alt="">
+            </a>
+            <!-- CONTACTS -->
+            <a href="contacts.html">
+                <img src="../assets/images/navbar-blanco-contactos.png" alt="">
+            </a>
+            <!-- HOME -->
+            <a href="homepage.html">
+                <img src="../assets/images/navbar-blanco-inicio.png" alt="">
+            </a>
+            <!-- CALENDAR -->
+            <a href="calendar.html">
+                <img src="../assets/images/navbar-dorado-calendario.png" alt="">
+            </a>
+            <!-- PROFILE -->
+            <a href="profile.html">
+                <img src="../assets/images/navbar-blanco-perfil.png" alt="">
+            </a>
+        </footer>
+    </div>
+
+    <!-- JAVASCRIPT -->
+    <!-- Service worker PWA -->
+    <script src="../sw.js"></script>
+    <script src="../script.js"></script>
+    <script src="../assets/libs/bootstrap-5.2.3/bootstrap.min.js"></script>
+    <script src="../assets/js/jquery-3.6.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+
+    <script src="../assets/libs/bootstrap-calendar/js/main.js"></script>
+    <script src="../assets/libs/bootstrap-calendar/js/popper.js"></script>
+
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script>
+        const { createApp } = Vue
+        const data = null;
+        const error = null;
+        // e.name.toUpperCase().includes('ga'.toUpperCase()))
+        createApp({
+            data() {
+                return {
+                    datos: JSON.parse(window.localStorage.usuario),
+                    events: [],
+                    filter: "",
+                    loaded: false
+                }
+            },
+            methods: {
+                profileImageError(event) {
+                    event.target.src = this.datos.urlAvatar;
+                },
+                getConfig({ url = String, data = FormData, method = String }) {
+                    return {
+                        method: method,
+                        url: url,
+                        data: data,
+                        headers: {
+                            'Authorization': `Bearer ${this.datos.token}`,
+                        },
+                    };
+                },
+            },
+            mounted() {
+                this.loaded = true;
+
+                // console.log(window.deferredPrompt);
+                
+            },
+            updated() {
+
+            }
+        }).mount('#app')
+    </script>
+</body>
+
+</html>

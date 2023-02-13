@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ventas / Rentas</title>
+    <!-- TAB ICON -->
+    <link rel="icon" href="../assets/images/logo-dorado.png">
+    <!-- BOOTSTRAP 5.2.3 -->
+    <link rel="stylesheet" href="../assets/libs/bootstrap-5.2.3/bootstrap.min.css">
+    <!-- FONT AWESOME -->
+    <link rel="stylesheet" href="../assets/libs/fontawesome/css/all.min.css">
+    <!-- MAIN CSS -->
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <!-- PWA META TAGS -->
+    <meta name="theme-color" content="#1A1A1A">
+    <meta name="MobileOptimized" content="width">
+    <meta name="HandheldFriendly" content="true">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#1A1A1A">
+    <link rel="shortcut icon" type="image/png" href="../img/64x64.png">
+    <link rel="apple-touch-icon" href="../img/64x64.png">
+    <link rel="apple-touch-startup-image" href="../img/64x64.png">
+    <link rel="manifest" href="../manifest.json">
+</head>
+<body>
+    <div id="app">
+        <!-- HEADER WITH LOGO AND TITLE -->
+        <header id="header" class="header-logo-title p-1">
+            <div class="header-logo">
+                <img src="../assets/images/logo-dorado-margen.png" alt="">
+            </div>
+            <div class="header-title">
+                <h2 class="text-center fs-22 fw-700 m-0">Ventas / Rentas</h2>
+            </div>
+            <div class="header-account me-2">
+                <a href="profile.html" class="d-flex justify-content-center align-items-center position-relative">
+                    <img src="../assets/images/profile-pic.png" alt="">
+                    <span class="position-absolute translate-middle badge rounded-pill fw-700 fs-10 bgcolor-primary txtcolor-black">
+                        3
+                    </span>
+                </a>
+            </div>
+        </header>
+    
+        <!-- MAIN CONTENT -->
+        <main class="container-fluid p-0">
+            <!-- SEARCH BAR -->
+            <div class="search-bar search-bar-alt p-4">
+                <form action="" method="" class="d-flex">
+                    <button type="submit">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </button>
+                    <input type="text" name="" class="px-1" placeholder="Buscar propiedad">
+                </form>
+            </div><!-- end search bar -->
+            <!-- LIST PROPERTIES -->
+            <div class="list-properties px-4 py-2">
+                <div class="row">
+                    <!-- CARD PROPERTY SOLD -->
+                    <div class="col-12 col-md-6 col-xl-4 mb-3" v-for="(propertie, index) in properties">
+                        <div class="card-property-sold box-shadow-25">
+                            <span class="badge-label-small badge-label-small-red">Vendida</span>
+                            <div class="card-property-sold-preview me-3">
+                                <img src="../assets/images/home-demo1.png" alt="">
+                            </div>
+                            <div class="card-property-sold-content">
+                                <div class="d-flex justify-content-between mb-1">
+                                    <h1 class="ff-raleway fs-18 fw-700 txtcolor-black m-0">Casa Progreso</h1>
+                                    <a href="property-details.html" class="button-see-details ms-2"><img src="../assets/images/icono-flecha-diagonal.png" alt=""></a>
+                                </div>
+                                <div class="d-flex align-items-center mb-1">
+                                    <i class="fa-solid fa-location-dot fs-16 h-100 me-1"></i>
+                                    <h2 class="ff-raleway fs-14 fw-500 txtcolor-black m-0">El Progreso, La Paz, B.C.S.</h2>
+                                </div>
+                                <div class="d-flex align-items-center mb-1">
+                                    <i class="fa-solid fa-bed"></i>
+                                    <h4 class="ff-roboto fs-16 fw-700 txtcolor-black mx-2 my-0">4</h4>
+                                    <i class="fa-solid fa-bath"></i>
+                                    <h4 class="ff-roboto fs-16 fw-700 txtcolor-black mx-2 my-0">3</h4>
+                                    <i class="fa-solid fa-car"></i>
+                                    <h4 class="ff-roboto fs-16 fw-700 txtcolor-black mx-2 my-0">2</h4>
+                                </div>
+                                <h3 class="ff-raleway fs-18 fw-700 txtcolor-black m-0">$60,000,000.00</h3>
+                            </div>
+                        </div>
+                    </div><!-- end card property sold -->
+            </div><!-- end div list properties -->
+        </main>
+    
+        <!-- NAVBAR -->
+        <footer id="navbar">
+            <!-- SCHEDULE -->
+            <a href="notifications.html">
+                <img src="../assets/images/navbar-blanco-notificaciones.png" alt="">
+            </a>
+            <!-- CONTACTS -->
+            <a href="contacts.html">
+                <img src="../assets/images/navbar-blanco-contactos.png" alt="">
+            </a>
+            <!-- HOME -->
+            <a href="homepage.html">
+                <img src="../assets/images/navbar-blanco-inicio.png" alt="">
+            </a>
+            <!-- CALENDAR -->
+            <a href="calendar.html">
+                <img src="../assets/images/navbar-blanco-calendario.png" alt="">
+            </a>
+            <!-- PROFILE -->
+            <a href="profile.html">
+                <img src="../assets/images/navbar-dorado-perfil.png" alt="">
+            </a>
+        </footer>
+    </div>
+
+    <!-- JAVASCRIPT -->
+    <!-- Service worker PWA -->
+    <script src="../sw.js"></script>
+    <script src="../script.js"></script>
+    <script src="../assets/libs/bootstrap-5.2.3/bootstrap.min.js"></script>
+    <script src="../assets/js/jquery-3.6.1.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- Enlazar vuejs -->
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <!-- Axios -->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+    <script>
+        const { createApp } = Vue
+        const data = null;
+        const error = null;
+        createApp({
+            data() {
+                    return {
+                        datos: JSON.parse(window.localStorage.getItem('usuario')),
+                        properties: {}
+                    }
+                },
+                methods: {
+                    loadProperties(){
+                        var flag = this;
+                        var config = {
+                        method: 'get',
+                        url: 'https://rv.devcobaja.com/api/properties',
+                        headers: { 
+                            'Authorization': `Bearer ${this.datos.token}`, 
+                        }
+                        };
+
+                        axios(config)
+                        .then(function (response) {
+                            flag.properties = response.data.data[1]
+                            console.log(flag.properties);
+                        })
+                        .catch(function (error) {
+                            window.location.href="error-connection.html"
+                        });
+                    }
+
+                },
+                mounted(){
+                    this.loadProperties();
+                }
+        }).mount('#app')
+    </script>
+</body>
+</html>

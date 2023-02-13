@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil</title>
+    <!-- TAB ICON -->
+    <link rel="icon" href="../assets/images/logo-dorado.png">
+    <!-- BOOTSTRAP 5.2.3 -->
+    <link rel="stylesheet" href="../assets/libs/bootstrap-5.2.3/bootstrap.min.css">
+    <!-- FONT AWESOME -->
+    <link rel="stylesheet" href="../assets/libs/fontawesome/css/all.min.css">
+    <!-- MAIN CSS -->
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <!-- PWA META TAGS -->
+    <meta name="theme-color" content="#1A1A1A">
+    <meta name="MobileOptimized" content="width">
+    <meta name="HandheldFriendly" content="true">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#1A1A1A">
+    <link rel="shortcut icon" type="image/png" href="../img/64x64.png">
+    <link rel="apple-touch-icon" href="../img/64x64.png">
+    <link rel="apple-touch-startup-image" href="../img/64x64.png">
+    <link rel="manifest" href="../manifest.json">
+</head>
+
+<body>
+    <!-- HEADER WITH RETURN AND TITLE -->
+    <div id="app" v-cloak>
+        <header id="header" class="p-1">
+            <div class="header-return ms-2">
+                <a href="homepage.html" class="fs-24">
+                    <i class="fa-solid fa-arrow-left"></i>
+                </a>
+            </div>
+            <div class="header-title">
+                <h2 class="text-center fs-24 fw-700 m-0">Mi perfil</h2>
+            </div>
+            <div class="header-edit me-2">
+                <a href="#" class="fs-24">
+                    <i class="fa-solid fa-gear"></i>
+                </a>
+            </div>
+        </header>
+
+        <!-- MAIN CONTENT -->
+        <main class="container-fluid p-0">
+            <!-- BLACK SPACE -->
+            <div class="black-space"></div>
+            <!-- PROFILE CONTENT -->
+            <div class="profile-content">
+                <div class="profile-info px-4">
+                    <img :src="`${datos.profile_photo_url ?? datos.userNameURL}`" @error="profileImageError"
+                        class="box-shadow-50 mb-3" alt="">
+                    <h1 class="fs-24 fw-700 txtcolor-black text-center mb-2">
+                        {{datos.name}}
+                    </h1>
+                    <h2 class="fs-16 fw-700 txtcolor-primary text-center mb-2">
+                        {{datos.correo}}
+                    </h2>
+                    <h2 class="fs-16 fw-700 txtcolor-primary text-center mb-2">
+                        {{datos.phone}}
+                    </h2>
+                    <p class="fs-16 fw-500 txtcolor-gray text-center mb-4">
+                        {{datos.about}}
+                    </p>
+                </div>
+                <div class="profile-options px-4">
+                    <h2 class="text-center fs-22 fw-700 mb-3">Opciones</h2>
+                    <div class="d-flex flex-column">
+                        <!-- PROPERTIES -->
+                        <a href="properties.html" class="profile-options-button bgcolor-black box-shadow-25 mb-2">
+                            <div class="d-flex align-items-center h-100">
+                                <img src="../assets/images/icono-perfil-propiedades.png" class="mx-4" alt="">
+                                <h3 class="fs-20 fw-600 m-0">Propiedades</h3>
+                            </div>
+                            <i class="fa-solid fa-angle-right mx-4"></i>
+                        </a>
+                        <!-- SCHEDULE -->
+                        <a href="schedule.html" class="profile-options-button bgcolor-black box-shadow-25 mb-2">
+                            <div class="d-flex align-items-center h-100">
+                                <img src="../assets/images/icono-perfil-agenda.png" class="mx-4" alt="">
+                                <h3 class="fs-20 fw-600 m-0">Agenda</h3>
+                            </div>
+                            <i class="fa-solid fa-angle-right mx-4"></i>
+                        </a>
+                        <!-- SALES / RENTS -->
+                        <a href="sales.html" class="profile-options-button bgcolor-black box-shadow-25 mb-2">
+                            <div class="d-flex align-items-center h-100">
+                                <img src="../assets/images/icono-perfil-ventas.png" class="mx-4" alt="">
+                                <h3 class="fs-20 fw-600 m-0">Ventas / Rentas</h3>
+                            </div>
+                            <i class="fa-solid fa-angle-right mx-4"></i>
+                        </a>
+                        <!-- CUSTOMERS -->
+                        <a href="contacts.html" class="profile-options-button bgcolor-black box-shadow-25 mb-2">
+                            <div class="d-flex align-items-center h-100">
+                                <img src="../assets/images/icono-perfil-clientes.png" class="mx-4" alt="">
+                                <h3 class="fs-20 fw-600 m-0">Clientes</h3>
+                            </div>
+                            <i class="fa-solid fa-angle-right mx-4"></i>
+                        </a>
+                        <!-- CUSTOMERS -->
+                        <a href="#" class="profile-options-button bgcolor-black box-shadow-25 mb-2" @click="logout">
+                            <div class="d-flex align-items-center h-100">
+                                <img src="../assets/images/icono-perfil-desconectarse.png" class="mx-4" alt="">
+                                <h3 class="fs-20 fw-600 m-0">Cerrar sesión</h3>
+                            </div>
+                            <i class="fa-solid fa-angle-right mx-4"></i>
+                        </a>
+                    </div>
+                </div><!-- end profile options -->
+            </div><!-- end profile content -->
+        </main>
+
+        <!-- NAVBAR -->
+        <footer id="navbar">
+            <!-- SCHEDULE -->
+            <a href="notifications.html">
+                <img src="../assets/images/navbar-blanco-notificaciones.png" alt="">
+            </a>
+            <!-- CONTACTS -->
+            <a href="contacts.html">
+                <img src="../assets/images/navbar-blanco-contactos.png" alt="">
+            </a>
+            <!-- HOME -->
+            <a href="homepage.html">
+                <img src="../assets/images/navbar-blanco-inicio.png" alt="">
+            </a>
+            <!-- CALENDAR -->
+            <a href="calendar.html">
+                <img src="../assets/images/navbar-blanco-calendario.png" alt="">
+            </a>
+            <!-- PROFILE -->
+            <a href="profile.html">
+                <img src="../assets/images/navbar-dorado-perfil.png" alt="">
+            </a>
+        </footer>
+    </div>
+
+
+    <!-- JAVASCRIPT -->
+    <!-- Service worker PWA -->
+    <script src="../sw.js"></script>
+    <script src="../script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+    <!-- Enlazar vuejs -->
+    <script src="../assets/js/jquery-3.6.1.min.js"></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <!-- Axios -->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="../assets/libs/bootstrap-5.2.3/bootstrap.min.js"></script>
+
+    <script>
+        const { createApp } = Vue
+        const data = null;
+        const error = null;
+        createApp({
+            data() {
+                return {
+                    datos: JSON.parse(window.localStorage.getItem('usuario'))
+                }
+            },
+            methods: {
+                profileImageError(event) {
+                    event.target.src = this.datos.urlAvatar;
+                },
+                logout() {
+                    Swal.fire({
+                        title: 'Estas seguro que deseas cerrar sesión?',
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#1d1',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Si, deseo cerrar sesión!'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            Swal.fire(
+                                'Se ha cerrado la sesión!',
+                                'La sesión se ha finalizado',
+                                'Completado'
+                            )
+                            setTimeout(() => {
+                                window.localStorage.clear()
+                                window.location.href = "../index.html"
+                            }, 1000);
+
+                        }
+                    })
+                },
+
+            },
+            mounted() {
+                console.log(this.datos)
+            }
+        }).mount('#app')
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <!-- TAB ICON -->
+    <link rel="icon" href="../assets/images/logo-dorado.png">
+    <!-- BOOTSTRAP 5.2.3 -->
+    <link rel="stylesheet" href="../assets/libs/bootstrap-5.2.3/bootstrap.min.css">
+    <!-- FONT AWESOME -->
+    <link rel="stylesheet" href="../assets/libs/fontawesome/css/all.min.css">
+    <!-- OWL CAROUSEL 2.3.4 -->
+    <link rel="stylesheet" href="../assets/libs/owl-carousel-2.3.4/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="../assets/libs/owl-carousel-2.3.4/css/owl.theme.default.min.css">
+    <!-- MAIN CSS -->
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <!-- PWA META TAGS -->
+    <meta name="theme-color" content="#1A1A1A">
+    <meta name="MobileOptimized" content="width">
+    <meta name="HandheldFriendly" content="true">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#1A1A1A">
+    <link rel="shortcut icon" type="image/png" href="../img/64x64.png">
+    <link rel="apple-touch-icon" href="../img/64x64.png">
+    <link rel="apple-touch-startup-image" href="../img/64x64.png">
+    <link rel="manifest" href="../manifest.json">
+</head>
+
+<body>
+    <div id="app" v-cloak>
+        <!-- HEADER WITH LOGO -->
+        <header id="header" class="p-1">
+            <div class="header-logo">
+                <img src="../assets/images/logo-dorado.png" alt="">
+            </div>
+            <div class="header-account me-2">
+                <div class="me-2">
+                    <h1 class="text-center fs-16 fw-700 m-0">Bienvenido</h1>
+                    <h2 class="text-center fs-16 fw-400 m-0">{{datos.name}}</h2>
+                </div>
+                <a href="profile.html" class="d-flex justify-content-center align-items-center position-relative">
+                    <img style="overflow: hidden;" :src="`${datos.profile_photo_url ?? datos.userNameURL}`"
+                        @error="profileImageError" alt="">
+                    <span v-if="datos.notifications.pending_notifications"
+                        class="position-absolute translate-middle badge rounded-pill fw-700 fs-10 bgcolor-primary txtcolor-black">
+                        {{datos.notifications.pending_notifications}}
+                    </span>
+                </a>
+            </div>
+        </header>
+
+        <!-- MAIN CONTENT -->
+        <main class="container-fluid p-0">
+            <!-- SEARCH BAR -->
+            <div class="search-bar p-4">
+                <form action="" method="" class="d-flex">
+                    <button type="submit">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </button>
+                    <input @input="inputSearchChange" type="text" name="" class="px-1" placeholder="Buscar propiedad">
+                </form>
+                <button type="button" onclick="" class="search-bar-filter">
+                    <img src="../assets/images/icono-filtros.png" alt="">
+                </button>
+            </div><!-- end search bar -->
+            <!-- CAROUSEL PROPERTIES -->
+            <div class="carousel-propierties pb-2 ">
+                <div class="owl-home-propierties owl-carousel owl-theme ">
+                    <!-- Type property Component -->
+                    <div class="item ms-4" v-for="type in typeProperties">
+                        <button @click="applyTypeFilter({filter:`${type.slug}`})" type="button"
+                            class="card-category-property bgcolor-white box-shadow-25"
+                            :style="`border-width: ${type.slug == filters.type ? '3px' : '1px'}; transition-duration: 0.10s`">
+                            <img src="../assets/images/icono-venta2.png" class="mb-1" alt="">
+                            <h2 class="fs-16 fw-600 txtcolor-primary text-center mb-0">
+                                {{type.name}}
+                            </h2>
+                        </button>
+                    </div>
+                </div>
+            </div><!-- end carousel category properties -->
+            <!-- PROPERTIES -->
+            <div class="home-properties px-4 py-2">
+                <h1 class="ff-roboto fs-18 fw-700 txtcolor-black mb-3">
+                    Propiedades
+                </h1>
+                <div class="row" id="property_card_container">
+
+                    <!-- SMALL CARD  -->
+                    <div v-for="(property, index) in filterArray().slice(0,2)"
+                        class="card-home-small col-6 col-sm-4 col-md-3 col-lg-2 mb-4">
+                        <a :href="`property-details.html?property=${property.slug}`" class="card-home-small-preview">
+                            <span class="badge-label badge-label-primary"
+                                v-html="property.status.charAt(0).toUpperCase() + property.status.slice(1)"></span>
+                            <img v-if="property.images.length" :src="`${property.images[0].full_path}`" alt="">
+                            <div class="card-home-small-description">
+                                <h2 class="ff-roboto fs-20 fw-700">{{property.name}}</h2>
+                                <h3 class="ff-raleway fs-12 fw-500 m-0">{{property.address.street}}
+                                    #{{property.address.number}}. {{property.address.city}}, {{property.address.state}}
+                                </h3>
+                            </div>
+                        </a>
+                        <div class="card-home-small-buttons mt-2">
+                            <a href="tel:526123480678" class="bgcolor-primary">
+                                <i class="fa-solid fa-phone"></i>
+                            </a>
+                            <a href="sms:526123480678" class="bgcolor-primary">
+                                <i class="fa-solid fa-comment-dots"></i>
+                            </a>
+                            <button @click="giveLove({index: `${index}`})" type="button" class="heart-toggle">
+                                <i :class="`${property.love == true ? 'fas' : ''} far fa-heart`"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <!-- end small card -->
+                    <!-- BIG CARD -->
+                    <div v-for="(property, index) in filterArray().slice(2)"
+                        class="card-home-big col-12 col-sm-6 col-md-4 col-lg-3 mb-4">
+                        <div class="rounded-4 box-shadow-25">
+                            <div class="card-home-big-preview">
+                                <img v-if="property.images.length" :src="`${property.images[0].full_path}`" alt="">
+                                <div class="card-home-big-extras">
+                                    <span class="badge-label badge-label-primary"
+                                        v-html="property.status.charAt(0).toUpperCase() + property.status.slice(1)"></span>
+                                    <button @click="giveLove({index:`${index+2}`})" type="button"
+                                        class="heart-toggle heart-toggle-transparent me-2">
+                                        <i :class="`${property.love == true ? 'fas' : ''} far fa-heart`"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="card-home-big-description px-2">
+                                <div class="d-flex justify-content-between py-2 mb-1">
+                                    <h2 class="ff-raleway fs-18 fw-700 m-0">{{property.name}}</h2>
+                                    <a :href="`property-details.html?property=${property.slug}`"
+                                        class="bgcolor-white txtcolor-primary border-2-primary fs-14 fw-700 ms-2">Detalles</a>
+                                </div>
+                                <div class="d-flex w-100">
+                                    <i class="fa-solid fa-location-dot fs-14 me-2"></i>
+                                    <h3 class="ff-raleway fs-12 fw-500 txtcolor-black mb-2">
+                                        {{property.address.street}}
+                                        #{{property.address.number}}. {{property.address.city}},
+                                        {{property.address.state}}
+                                    </h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end big card -->
+                </div><!-- end row -->
+            </div>
+        </main>
+
+        <!-- NAVBAR -->
+        <footer id="navbar">
+            <!-- NOTIFICATIONS -->
+            <a href="notifications.html">
+                <img src="../assets/images/navbar-blanco-notificaciones.png" alt="">
+            </a>
+            <!-- CONTACTS -->
+            <a href="contacts.html">
+                <img src="../assets/images/navbar-blanco-contactos.png" alt="">
+            </a>
+            <!-- HOME -->
+            <a href="homepage.html">
+                <img src="../assets/images/navbar-dorado-inicio.png" alt="">
+            </a>
+            <!-- CALENDAR -->
+            <a href="calendar.html">
+                <img src="../assets/images/navbar-blanco-calendario.png" alt="">
+            </a>
+            <!-- PROFILE -->
+            <a href="profile.html">
+                <img src="../assets/images/navbar-blanco-perfil.png" alt="">
+            </a>
+        </footer>
+    </div>
+
+    <!-- JAVASCRIPT -->
+    <!-- Service worker PWA -->
+    <script src="../sw.js"></script>
+    <script src="../script.js"></script>
+    <script src="../assets/js/jquery-3.6.1.min.js"></script>
+    <script src="../assets/libs/bootstrap-5.2.3/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+    <script src="../assets/js/toggle-heart.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="../assets/libs/owl-carousel-2.3.4/js/owl.carousel.min.js"></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+    <script>
+        const { createApp } = Vue
+        const data = null;
+        const error = null;
+        createApp({
+            data() {
+                return {
+                    datos: JSON.parse(window.localStorage.getItem('usuario')),
+                    typeProperties: [],
+                    properties: [],
+                    filters: {
+                        search: "",
+                        type: ""
+                    },
+                    scriptDirArray: [
+                        "../assets/js/owl-carousels.js",
+                    ],
+                    loaded: false
+                }
+            },
+            methods: {
+                inputSearchChange(event) {
+                    this.filters.search = event.target.value;
+                },
+                filterArray() {
+                    return this.filters.search ? this.properties.filter(property =>
+                        property.name.toLowerCase().includes(this.filters.search.trim().toLowerCase()))
+                        : this.properties;
+                },
+                profileImageError(event) {
+                    event.target.src = this.datos.urlAvatar;
+                },
+                // SE CARGAN LOS TIPOS DE PROPIEDADES
+                async loadTypeProperty() {
+                    let { data: res } = await axios(this.getConfig({
+                        url: "https://rv.devcobaja.com/api/property-types",
+                        method: 'get'
+                    }))
+
+                    let { data } = res
+                    this.typeProperties = data;
+                },
+
+                // SE CARGAN LAS PROPIEDADES
+                async loadProperty() {
+                    let { data: res } = await axios(this.getConfig({
+                        url: `https://rv.devcobaja.com/api/properties${this.filters.type ? `?propery_type_slug=${this.filters.type}` : ''}`,
+                        method: "get"
+                    }))
+
+                    let { data } = res;
+                    let properties = [];
+                    /* 
+                        En este caso se hizo que las publicaciones sin imagenes no se muestre o pasen al estado general de las propiedades
+                        Esto es asi, en lo que se diseña un componente tipo imagen que diga que no hay imagenes disponibles :)  dejo esto como recordatorio...
+                    */
+                    data.map(({ properties: type }) => type.map(property => property.images.length ? properties.push(property) : ''));
+                    this.properties = properties;
+                },
+
+                // Metodo para montrar algunos scripts despues de recibir datos
+                mountScript({ scriptDir = Array, container = HTMLScriptElement }) {
+                    scriptDir.map(obj => {
+                        let element = document.createElement('script');
+                        element.setAttribute('src', obj);
+                        container.appendChild(element)
+                    })
+                },
+
+                // Metodo para aplicar filtro
+                applyTypeFilter({ filter = String }) {
+                    this.filters.type = this.filters.type == filter ? "" : filter;
+                    this.loadProperty();
+                },
+
+                // Metodo para cambiar el estado de 'love'
+                async giveLove({ index = Number }) {
+                    let form = new FormData();
+                    let url = this.properties[index].love ? 'https://rv.devcobaja.com/api/properties/remove-like' : "https://rv.devcobaja.com/api/properties/like"
+                    form.append('property_id', this.properties[index].id);
+
+                    let { data: res } = await axios(this.getConfig({ url: url, method: 'post', data: form }))
+
+                    if (res.code == 200) {
+                        this.properties[index].love = !this.properties[index].love;
+                    }
+                },
+
+                getConfig({ url = String, data = FormData, method = String }) {
+                    return {
+                        method: method,
+                        url: url,
+                        data: data,
+                        headers: {
+                            'Authorization': `Bearer ${this.datos.token}`,
+                        },
+                    };
+                },
+
+            },
+            mounted() {
+                this.loadTypeProperty();
+                this.loadProperty();
+            },
+
+            updated() {
+                if (!this.loaded) {
+                    this.mountScript({
+                        scriptDir: this.scriptDirArray,
+                        container: document.body
+                    });
+                    this.loaded = true;
+                }
+            }
+
+        }).mount('#app')
+    </script>
+</body>
+
+</html>

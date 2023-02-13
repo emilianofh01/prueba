@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <!-- TAB ICON -->
+    <link rel="icon" href="assets/images/logo-dorado.png">
+    <!-- BOOTSTRAP 5.2.3 -->
+    <link rel="stylesheet" href="assets/libs/bootstrap-5.2.3/bootstrap.min.css">
+    <!-- FONT AWESOME -->
+    <link rel="stylesheet" href="assets/libs/fontawesome/css/all.min.css">
+    <!-- MAIN CSS -->
+    <link rel="stylesheet" href="assets/css/main.css">
+    <!-- PWA META TAGS -->
+    <meta name="theme-color" content="#1A1A1A">
+    <meta name="MobileOptimized" content="width">
+    <meta name="HandheldFriendly" content="true">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#1A1A1A">
+    <link rel="shortcut icon" type="image/png" href="./img/64x64.png">
+    <link rel="apple-touch-icon" href="./img/64x64.png">
+    <link rel="apple-touch-startup-image" href="./img/64x64.png">
+    <link rel="manifest" href="manifest.json">
+</head>
+
+<body>
+    <div id="app">
+        <div class="login-background">
+            <div class="login-background-overlay d-flex flex-column justify-content-center align-items-center">
+                <div class="login p-4">
+                    <img @click="install" src="assets/images/logo-blanco.png" class="p-2 mb-5" alt="">
+
+                    <div class="d-flex flex-column justify-content-center">
+                        <!-- EMAIL INPUT -->
+                        <div class="login-inputs">
+                            <label for="email" class="mb-2">Correo electrónico:</label>
+                            <div>
+                                <input type="email" name="email" class="input-next-icon mb-2"
+                                    placeholder="Ingresa tu correo" v-model="email">
+                                <span><i class="fa-solid fa-envelope"></i></span>
+                            </div>
+                        </div>
+                        <!-- PASSWORD INPUT -->
+                        <div class="login-inputs">
+                            <label for="password" class="mb-2">Contraseña:</label>
+                            <div>
+                                <input type="password" id="password" name="password" class="input-next-icon mb-2"
+                                    placeholder="Ingresa tu contraseña" v-model="password">
+                                <button type="button"><i class="fa-solid fa-eye-slash" id="togglePassword"></i></button>
+                            </div>
+                        </div>
+                        <!-- RECOVER PASSWORD LINK -->
+                        <a href="views/recover-password.html" class="text-end mb-4">
+                            ¿Olvidó su contraseña?
+                        </a>
+                        <!-- BUTTON SUBMIT AND REGISTER LINK -->
+                        <div class="login-buttons-actions mt-4">
+                            <button type="submit" class="mb-3 bgcolor-primary" @click="login">
+                                Comenzar
+                            </button>
+                            <a href="views/register.html" class="mb-4">
+                                ¿No tienes una cuenta? <span class="ms-2 txtcolor-primary">Registrate</span>
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- JAVASCRIPT -->
+    <script src="script.js"></script>
+    <script src="sw.js"></script>
+    <script src="assets/libs/bootstrap-5.2.3/bootstrap.min.js"></script>
+    <script src="assets/js/jquery-3.6.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+    <!-- Enlazar vuejs -->
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <!-- Axios -->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+    <script>
+        const { createApp } = Vue
+        const data = null;
+        const error = null;
+        createApp({
+            data() {
+                return {
+                    email: '',
+                    password: '',
+                    userType: 'User',
+
+                    tmp_user: []
+                }
+            },
+            methods: {
+                async loadNotifications({ token = String }) {
+                    let { data: res } = await axios({
+                        method: 'GET',
+                        url: 'https://rv.devcobaja.com/api/notifications',
+                        headers: {
+                            'Authorization': `Bearer ${token}`,
+                        },
+                    })
+
+                    let { data } = res;
+                    let { length } = data.filter(e => !e.pivot.seen);
+
+                    return {
+                        last_request_date: Date.now(),
+                        pending_notifications: length
+                    }
+                },
+                install() {
+                    window.installApp();
+                },
+                async login(e) {
+                    e.preventDefault();
+                    var data = new FormData();
+                    data.append('email', this.email);
+                    data.append('password', this.password);
+                    data.append('user_type', this.userType);
+
+                    var config = {
+                        method: 'post',
+                        url: 'https://rv.devcobaja.com/api/login',
+                        data: data
+                    };
+
+                    axios(config)
+                        .then(async ({ data }) => {
+                            let user_info = data.data;
+
+                            if (data.code == 200) {
+                                let { id, email, name, lastname, phone_number, token, about, profile_photo_url } = user_info;
+
+                                let tmp_user = {
+                                    id,
+                                    email,
+                                    name,
+                                    lastname,
+                                    phone_number,
+                                    token,
+                                    about,
+                                    profile_photo_url,
+                                    notifications: {},
+                                    urlAvatar: ""
+                                }
+
+                                const urlParam = new URLSearchParams(tmp_user.name).toString();
+
+                                tmp_user['notifications'] = await this.loadNotifications({ token: token });
+                                tmp_user['urlAvatar'] = `https://ui-avatars.com/api/?name=${urlParam}&background=1d1818&color=d9ac6c&size=128`
+
+
+                                window.localStorage.setItem('usuario', JSON.stringify(tmp_user));
+                                console.log(JSON.parse(window.localStorage.getItem('usuario')))
+
+                                window.location.href = "./views/homepage.html";
+                            }
+                        })
+                        .catch((error) => {
+                            console.log(error)
+                            alert("Datos erroneos")
+                        });
+                }
+            },
+            mounted() {
+                window.localStorage.clear()
+            }
+
+        }).mount('#app')
+    </script>
+    <script src="assets/js/toggle-password.js"></script>
+
+</body>
+
+</html>

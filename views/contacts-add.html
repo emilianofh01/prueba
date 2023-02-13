@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Añadir cliente</title>
+    <!-- TAB ICON -->
+    <link rel="icon" href="../assets/images/logo-dorado.png">
+    <!-- BOOTSTRAP 5.2.3 -->
+    <link rel="stylesheet" href="../assets/libs/bootstrap-5.2.3/bootstrap.min.css">
+    <!-- FONT AWESOME -->
+    <link rel="stylesheet" href="../assets/libs/fontawesome/css/all.min.css">
+    <!-- MAIN CSS -->
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <!-- PWA META TAGS -->
+    <meta name="theme-color" content="#1A1A1A">
+    <meta name="MobileOptimized" content="width">
+    <meta name="HandheldFriendly" content="true">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#1A1A1A">
+    <link rel="shortcut icon" type="image/png" href="../img/64x64.png">
+    <link rel="apple-touch-icon" href="../img/64x64.png">
+    <link rel="apple-touch-startup-image" href="../img/64x64.png">
+    <link rel="manifest" href="../manifest.json">
+</head>
+
+<body>
+    <!-- HEADER WITH RETURN AND TITLE -->
+    <header id="header" class="p-1">
+        <div class="header-return ms-2">
+            <a href="contacts.html" class="fs-24">
+                <i class="fa-solid fa-arrow-left"></i>
+            </a>
+        </div>
+        <div class="header-title">
+            <h2 class="text-center fs-20 fw-700 m-0">Añadir cliente</h2>
+        </div>
+        <div class="header-account me-2">
+            <a href="profile.html" class="d-flex justify-content-center align-items-center position-relative">
+                <img style="overflow: hidden;" id="profile_photo" src="" alt="">
+                <span v-if="datos.notifications.pending_notifications"
+                    class="position-absolute translate-middle badge rounded-pill fw-700 fs-10 bgcolor-primary txtcolor-black"
+                    id="notifications_indicator">
+                    0
+                </span>
+            </a>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main class="container-fluid p-0">
+        <!-- BLACK SPACE -->
+        <div class="black-space"></div>
+        <!-- ADD CONTACT CONTENT -->
+        <div class="contact-add-content px-4">
+            <form action="" method="">
+                <!-- PROFILE PIC -->
+                <div class="contact-add-image box-shadow-50">
+                    <img src="../assets/images/icono-perfil.png" id="profileImage" alt="">
+                    <label for="profile-pic-upload" class="input-profile-upload box-shadow-50">
+                        <i class="fa-solid fa-camera txtcolor-white fs-22"></i>
+                    </label>
+                    <input type="file" id="profile-pic-upload" name="file" accept=".jpg, .png, .webp" hidden>
+                </div>
+                <div class="contact-add-form-inputs">
+                    <div class="row">
+                        <!-- NAME -->
+                        <div class="col-12 mb-4">
+                            <label for="name" class="mb-2">Nombre completo</label>
+                            <input type="text" name="name" placeholder="Ingrese el nombre" class="px-3" required>
+                        </div>
+                        <!-- LOCALITY -->
+                        <div class="col-12 mb-4">
+                            <label for="position" class="mb-2">Localidad</label>
+                            <input type="text" name="position" placeholder="Ingrese la localidad" class="px-3" required>
+                        </div>
+
+                        <div class="col-12 mb-4">
+                            <label for="client_type_id" class="mb-2">Tipo de cliente</label>
+                            <!-- <input type="text" name="position" placeholder="Ingrese la localidad" class="px-3" required> -->
+                            <select name="client_type_id" style="margin-top: unset;" id="client_type_id"
+                                class="contact-add-form-inputs px-3" required>
+                                <option selected value="0">Elija una opción</option>
+
+                            </select>
+                        </div>
+                        <!-- PHONE -->
+                        <div class="col-12 mb-4">
+                            <label for="phone_number" class="mb-2">Teléfono</label>
+                            <input type="tel" name="phone_number" placeholder="Ingrese el número de teléfono"
+                                class="px-3" required>
+                        </div>
+                        <!-- EMAIL -->
+                        <div class="col-12 mb-4">
+                            <label for="email" class="mb-2">Correo electrónico</label>
+                            <input type="email" name="email" placeholder="Ingrese el correo electrónico" class="px-3"
+                                required>
+                        </div>
+                        <!-- OCCUPATION -->
+                        <div class="col-12 mb-4">
+                            <label for="grade" class="mb-2">Ocupación</label>
+                            <input type="text" name="grade" placeholder="Ingrese la ocupación" class="px-3" required>
+                        </div>
+                        <!-- DESCRIPTION -->
+                        <div class="col-12 mb-4">
+                            <label for="about" class="mb-2">Descripción</label>
+                            <textarea class="p-3" name="about" rows="4" placeholder="Ingrese una breve descripción"
+                                required></textarea>
+                        </div>
+                    </div><!-- end row -->
+                </div><!-- end div form inputs -->
+                <!-- BUTTONS "CONTINUE" AND "CANCEL" -->
+                <div class="contact-add-buttons pb-4">
+                    <button type="button" onclick="addClient()" class="button-primary mb-3">Confirmar</button>
+                    <button type="button" class="button-black"><a href="contacts.html">Cancelar</a></button>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <!-- NAVBAR -->
+    <footer id="navbar">
+        <!-- SCHEDULE -->
+        <a href="schedule.html">
+            <img src="../assets/images/navbar-blanco-notificaciones.png" alt="">
+        </a>
+        <!-- CONTACTS -->
+        <a href="contacts.html">
+            <img src="../assets/images/navbar-dorado-contactos.png" alt="">
+        </a>
+        <!-- HOME -->
+        <a href="homepage.html">
+            <img src="../assets/images/navbar-blanco-inicio.png" alt="">
+        </a>
+        <!-- CALENDAR -->
+        <a href="calendar.html">
+            <img src="../assets/images/navbar-blanco-calendario.png" alt="">
+        </a>
+        <!-- PROFILE -->
+        <a href="profile.html">
+            <img src="../assets/images/navbar-blanco-perfil.png" alt="">
+        </a>
+    </footer>
+
+    <!-- JAVASCRIPT -->
+    <!-- Service worker PWA -->
+    <script src="../sw.js"></script>
+    <script src="../script.js"></script>
+    <script src="../assets/libs/bootstrap-5.2.3/bootstrap.min.js"></script>
+    <script src="../assets/js/jquery-3.6.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+    <script>
+        let { token, ...datos } = JSON.parse(window.localStorage.usuario);
+        let photo;
+
+        loadTypeClients(); // Cargando los tipos de clientes
+
+        profileImageError = (event) => {
+            event.target.src = this.datos.urlAvatar;
+        }
+
+        loadContent = async () => {
+            let notifications_indicator = document.querySelector('#notifications_indicator');
+            let profile_photo = document.querySelector("#profile_photo");
+
+            notifications_indicator.innerHTML = datos.notifications.pending_notifications;
+            profile_photo.onerror = function() { 
+                this.src = datos.urlAvatar
+            } 
+            profile_photo.src = datos.profile_photo_url;
+        }
+
+        loadContent();
+
+        //JS DEL INPUT PARA SUBIR IMAGEN
+        $("#profileImage").click(function (e) {
+            $("#profile-pic-upload").click();
+        });
+        function fasterPreview(uploader) {
+            if (uploader.files && uploader.files[0]) {
+                photo = uploader.files[0];
+                $('#profileImage').attr('src',
+                    window.URL.createObjectURL(photo));
+            }
+        }
+        $("#profile-pic-upload").change(function () {
+            fasterPreview(this);
+        });
+
+        //SWEETALERT
+        function success(funcConfirmed) {
+            Swal.fire({
+                type: "success",
+                text: "¡Se ha añadido el cliente!",
+                confirmButtonText: "Aceptar",
+            }).then(result => {
+                if(result.isConfirmed) {
+                    funcConfirmed();
+                }
+            })
+        }
+
+        function error(text) {
+            Swal.fire({
+                type: "error",
+                text: text,
+                confirmButtonText: "Intentar de nuevo"
+            })
+        }
+
+        // METODO PARA CREAR LOS OPTION PARA LOS TIPOS DE CLIENTES (PLANTILLA)
+        createFormOption = ({ id, name }) => `<option value="${id}">${name}</option>`;
+
+        // CARGAR TIPOS DE CLIENTES
+        async function loadTypeClients() {
+            try {
+                const res = await axios({
+                    method: 'get',
+                    url: 'https://rv.devcobaja.com/api/client-types',
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    },
+                })
+                    .then(({ data }) => {
+                        var selectComponent = document.querySelector("#client_type_id");
+
+                        data.data.map(({ id, name }) => {
+                            selectComponent.innerHTML += createFormOption({ id, name });
+                        })
+                    })
+            } catch (err) {
+                error()
+                console.log(err)
+            }
+        }
+
+        // AÑADIR CLIENTE
+        async function addClient() {
+            let values = $('form').serializeArray();
+            let data = new FormData();
+
+            values.map(({ name, value }) => data.append(name, value));
+            data.append("avatar_file", photo);
+
+            // SI EL USUARIO NO HA SELECCIONADO UN TIPO DE CLIENTE, MOSTRARÁ ERROR
+            if (data.get('client_type_id') == 0) {
+                error("Seleccione un tipo de cliente.")
+                return;
+            }
+
+            try {
+                const res = await axios({
+                    method: 'post',
+                    url: 'https://rv.devcobaja.com/api/clients',
+                    data: data,
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    },
+                }).then(e => {
+                    success(() => {window.location.href = "./contacts.html"});      
+                });
+            } catch (err) {
+                error("No fue posible añadir al cliente.")
+                console.log(err)
+            }
+        } 
+    </script>
+</body>
+
+</html>
