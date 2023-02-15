@@ -1,7 +1,7 @@
 {
   "name": "RV Bienes Raíces",
   "short_name": "RBE",
-  "background_color": "#1A1A1A",
+  "background_color": "#211c1c",
   "theme_color": "#212121",
   "orientation": "portrait-primary",
   "display": "standalone",
