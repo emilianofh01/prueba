@@ -21,16 +21,16 @@ if ('serviceWorker' in navigator) {
 // } else {
 //   alert("No instalado")
 // }
-this.deferredPrompt;
-this.installApp = () => {
-  this.deferredPrompt.prompt();
-}
+// this.deferredPrompt;
+// this.installApp = () => {
+//   this.deferredPrompt.prompt();
+// }
 
-window.addEventListener("beforeinstallprompt", e => {
-  e.preventDefault();
-  // Guardamos el evento para utilizarlo despues
-  this.deferredPrompt = e;
-});
+// window.addEventListener("beforeinstallprompt", e => {
+//   e.preventDefault();
+//   // Guardamos el evento para utilizarlo despues
+//   this.deferredPrompt = e;
+// });
 
 
 
