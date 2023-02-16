@@ -4,33 +4,14 @@ if ('serviceWorker' in navigator) {
     .catch(err => console.warn('Service worker not registered', err))
 }
 
-// const UA = navigator.userAgent;
+// Evento para llamar la instalacion de la app
+this.deferredPrompt = "";
 
-// const IOS = UA.match(/iPhone|iPad|iPod/);
-// const ANDROID = UA.match(/Android/);
-
-// const PLATFORM = IOS ? 'ios' : ANDROID ? 'android' : 'unknown';
-
-// const standalone = window.matchMedia('(display-mode: standalone)').matches;
-
-// const INSTALLED = !!(standalone || (IOS && !UA.match(/Safari/)));
-
-
-// if(INSTALLED) {
-//   alert("Instalado")
-// } else {
-//   alert("No instalado")
-// }
-// this.deferredPrompt;
-// this.installApp = () => {
-//   this.deferredPrompt.prompt();
-// }
-
-// window.addEventListener("beforeinstallprompt", e => {
-//   e.preventDefault();
-//   // Guardamos el evento para utilizarlo despues
-//   this.deferredPrompt = e;
-// });
+window.addEventListener("beforeinstallprompt", e => {
+  e.preventDefault();
+  // Guardamos el evento para utilizarlo despues
+  this.deferredPrompt = e;
+});
 
 
 

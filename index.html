@@ -84,53 +84,286 @@
         media="screen and (device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)"
         href="../img/splash_iOS/splash_screens/4__iPhone_SE__iPod_touch_5th_generation_and_later_portrait.png">
     <link rel="manifest" href="manifest.json">
+    <style>
+        .login_wrapper {
+            /* --show-invitation: none; */
+            position: relative;
+            overflow: hidden;
+        }
+
+        .login_wrapper.open-invitation .advertisement {
+            animation-name: showInvitation;
+            animation-duration: 0.3s;
+            animation-timing-function: ease;
+            animation-delay: 0.3s;
+            animation-fill-mode: both;
+        }
+
+        .login_wrapper.open-invitation::before {
+            animation-name: showBackground;
+            animation-duration: 0.2s;
+            animation-timing-function: linear;
+            animation-delay: 0.2s;
+            animation-fill-mode: both;
+        }
+
+        /* CERRAR INVITACION */
+        .login_wrapper.open-invitation.close-invitation .advertisement {
+            animation-name: hideInvitation;
+            animation-duration: 0.3s;
+            animation-timing-function: ease;
+            /* animation-delay: 0.6s; */
+            animation-fill-mode: both;
+            /* transition: all 0.2s ease; */
+        }
+
+        .login_wrapper.open-invitation.close-invitation::before {
+            animation-name: hideBackground;
+            animation-duration: 0.2s;
+            animation-timing-function: linear;
+            /* animation-delay: 0.5s; */
+            animation-fill-mode: both;
+        }
+
+        .login_wrapper::before {
+            content: '';
+            /* display: var(--show-invitation); */
+            background-color: rgba(0, 0, 0, 0);
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: 1000;
+        }
+
+        .advertisement {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            width: 95%;
+            background-color: #efeff1;
+            overflow: hidden;
+            position: fixed;
+            bottom: -100%;
+            border-radius: 25px;
+            left: 0;
+            right: 0;
+            margin: auto;
+            z-index: 1000;
+            /* transition: all ease 0.2s; */
+            /* display: var(--show-invitation); */            
+        }
+
+
+
+        @keyframes showBackground {
+            0% {
+                display: none;
+                background-color: rgba(0, 0, 0, 0);
+            }
+
+            100% {
+                display: block;
+                background-color: rgba(0, 0, 0, 0.5);
+            }
+        }
+
+        @keyframes hideBackground {
+            
+            0% {
+                display: block;
+                background-color: rgba(0, 0, 0, 0.5);
+            }
+            100% {
+                display: none;
+                background-color: rgba(0, 0, 0, 0);
+            }
+        }
+
+        @keyframes showInvitation {
+            0% {
+                display: none;
+                bottom: -100%;
+            }
+
+            100% {
+                display: block;
+                bottom: 20px;
+            }
+        }
+
+        @keyframes hideInvitation {
+            0% {
+                display: block;
+                bottom: 20px;
+            }
+            100% {
+                display: none;
+                bottom: -100%;
+            }
+        }
+
+        .advertisement .header {
+            display: flex;
+            align-items: center;
+            padding: 20px;
+            padding-bottom: 0;
+        }
+
+        .advertisement .header svg {
+            width: 50px;
+            height: 50px;
+            background-color: white;
+            padding: 12px;
+            border-radius: 10px;
+            margin-right: 15px;
+            box-shadow: 0px 0px 3px 0px rgb(0 0 0 / 20%);
+        }
+
+        .advertisement .body {
+            padding-inline: 20px;
+            padding-bottom: 20px;
+        }
+
+        .advertisement hr {
+            margin-block: 15px;
+            color: #929292;
+        }
+
+        .advertisement .header h2 {
+            margin-bottom: 0;
+            font-size: 1.4em;
+            /* font-weight: bold; */
+        }
+
+        .advertisement button path {
+            fill: #7e7e7e;
+        }
+
+        .advertisement .body button {
+            background-color: #007aff;
+            color: white;
+            width: 100%;
+            padding: 15px 20px;
+            border-radius: 10px;
+        }
+
+        .advertisement > button {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            padding: 16px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            right: 20px;
+            bottom: 20px;
+            border-radius: 50%;
+            background-color: white;
+            box-shadow: 0px 0px 3px 0px rgb(0 0 0 / 20%);
+        }
+
+        .advertisement_instructions li img {
+            width: 28px;
+            background-color: white;
+            padding: 3px 6px;
+            border-radius: 5px;
+            margin-left: 5px;
+            box-shadow: 0px 0px 3px 0px rgb(0 0 0 / 20%);
+        }
+
+        .advertisement_instructions {
+            padding-left: 0;
+            list-style-position: inside;
+        }
+
+        .advertisement_instructions li {
+            margin-bottom: 20px;
+        }
+
+        .advertisement_instructions li b {
+            background-color: white;
+            padding: 5px;
+            border-radius: 5px;
+            box-shadow: 0px 0px 3px 0px rgb(0 0 0 / 20%);
+        }
+    </style>
 </head>
 
 <body>
-    <div id="app">
-        <div class="login-background">
-            <div class="login-background-overlay d-flex flex-column justify-content-center align-items-center">
-                <div class="login p-4">
-                    <img src="assets/images/logo-blanco.png" class="p-2 mb-5" alt="">
+    <div id="app" v-cloak>
+        <div class="login_wrapper" :class="`${installed ? 'close-invitation' : 'open-invitation'}`">
+            <div class="login-background">
+                <div class="login-background-overlay d-flex flex-column justify-content-center align-items-center">
+                    <div class="login p-4">
+                        <img src="assets/images/logo-blanco.png" class="p-2 mb-5" alt="">
 
-                    <div class="d-flex flex-column justify-content-center">
-                        <!-- EMAIL INPUT -->
-                        <div class="login-inputs">
-                            <label for="email" class="mb-2">Correo electrónico:</label>
-                            <div>
-                                <input type="email" name="email" class="input-next-icon mb-2"
-                                    placeholder="Ingresa tu correo" v-model="email">
-                                <span><i class="fa-solid fa-envelope"></i></span>
+                        <div class="d-flex flex-column justify-content-center">
+                            <!-- EMAIL INPUT -->
+                            <div class="login-inputs">
+                                <label for="email" class="mb-2">Correo electrónico:</label>
+                                <div>
+                                    <input type="email" name="email" class="input-next-icon mb-2"
+                                        placeholder="Ingresa tu correo" v-model="email">
+                                    <span><i class="fa-solid fa-envelope"></i></span>
+                                </div>
                             </div>
-                        </div>
-                        <!-- PASSWORD INPUT -->
-                        <div class="login-inputs">
-                            <label for="password" class="mb-2">Contraseña:</label>
-                            <div>
-                                <input type="password" id="password" name="password" class="input-next-icon mb-2"
-                                    placeholder="Ingresa tu contraseña" v-model="password">
-                                <button type="button"><i class="fa-solid fa-eye-slash" id="togglePassword"></i></button>
+                            <!-- PASSWORD INPUT -->
+                            <div class="login-inputs">
+                                <label for="password" class="mb-2">Contraseña:</label>
+                                <div>
+                                    <input type="password" id="password" name="password" class="input-next-icon mb-2"
+                                        placeholder="Ingresa tu contraseña" v-model="password">
+                                    <button type="button"><i class="fa-solid fa-eye-slash"
+                                            id="togglePassword"></i></button>
+                                </div>
                             </div>
-                        </div>
-                        <!-- RECOVER PASSWORD LINK -->
-                        <a href="views/recover-password.html" class="text-end mb-4">
-                            ¿Olvidó su contraseña?
-                        </a>
-                        <!-- BUTTON SUBMIT AND REGISTER LINK -->
-                        <div class="login-buttons-actions mt-4">
-                            <button type="submit" class="mb-3 bgcolor-primary" @click="login">
-                                Comenzar
-                            </button>
-                            <a href="views/register.html" class="mb-4">
-                                ¿No tienes una cuenta? <span class="ms-2 txtcolor-primary">Registrate</span>
+                            <!-- RECOVER PASSWORD LINK -->
+                            <a href="views/recover-password.html" class="text-end mb-4">
+                                ¿Olvidó su contraseña?
                             </a>
+                            <!-- BUTTON SUBMIT AND REGISTER LINK -->
+                            <div class="login-buttons-actions mt-4">
+                                <button type="submit" class="mb-3 bgcolor-primary" @click="login">
+                                    Comenzar
+                                </button>
+                                <a href="views/register.html" class="mb-4">
+                                    ¿No tienes una cuenta? <span class="ms-2 txtcolor-primary">Registrate</span>
+                                </a>
+                            </div>
                         </div>
-                    </div>
 
+                    </div>
                 </div>
             </div>
-        </div>
+            <div class="advertisement">
+                <div class="header">
+                    <svg xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 576 512"><!--! Font Awesome Pro 6.3.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
+                        <path
+                            d="M264.5 5.2c14.9-6.9 32.1-6.9 47 0l218.6 101c8.5 3.9 13.9 12.4 13.9 21.8s-5.4 17.9-13.9 21.8l-218.6 101c-14.9 6.9-32.1 6.9-47 0L45.9 149.8C37.4 145.8 32 137.3 32 128s5.4-17.9 13.9-21.8L264.5 5.2zM476.9 209.6l53.2 24.6c8.5 3.9 13.9 12.4 13.9 21.8s-5.4 17.9-13.9 21.8l-218.6 101c-14.9 6.9-32.1 6.9-47 0L45.9 277.8C37.4 273.8 32 265.3 32 256s5.4-17.9 13.9-21.8l53.2-24.6 152 70.2c23.4 10.8 50.4 10.8 73.8 0l152-70.2zm-152 198.2l152-70.2 53.2 24.6c8.5 3.9 13.9 12.4 13.9 21.8s-5.4 17.9-13.9 21.8l-218.6 101c-14.9 6.9-32.1 6.9-47 0L45.9 405.8C37.4 401.8 32 393.3 32 384s5.4-17.9 13.9-21.8l53.2-24.6 152 70.2c23.4 10.8 50.4 10.8 73.8 0z" />
+                    </svg>
 
+                    <h2>Instalar RBE</h2>
+                </div>
+                <hr>
+                <div class="body">
+                    <p>Instale la aplicación para acceder facilmente a ella en cualquier momento. Sin tienda de
+                        aplicaciones
+                        ni descargas, y mucho menos complicaciones.</p>
+
+                    <ol v-if="platform == 'ios'" class="advertisement_instructions">
+                        <li>Presione en <img src="./img/apple_share_icon.jpg" alt=""></li>
+                        <li>Seleccione <b>Agregar a Inicio</b></li>
+                    </ol>
+
+                    <button v-if="platform == 'ios' || platform == 'unknown'" @click="installApp">
+                        Instalar
+                    </button>
+                </div>
+                <button @click="hideInvitation">
+                    <img src="./img/close_icon.svg" alt="">
+                </button>
+            </div>
+        </div>
     </div>
 
     <!-- JAVASCRIPT -->
@@ -154,6 +387,8 @@
                     email: '',
                     password: '',
                     userType: 'User',
+                    platform: "",
+                    installed: '',
 
                     tmp_user: []
                 }
@@ -176,8 +411,24 @@
                         pending_notifications: length
                     }
                 },
-                install() {
-                    window.installApp();
+                detectPlatform() {
+                    const UA = navigator.userAgent;
+
+                    const IOS = UA.match(/iPhone|iPad|iPod/);
+                    const ANDROID = UA.match(/Android/);
+
+
+                    const standalone = window.matchMedia('(display-mode: standalone)').matches;
+
+                    this.installed = !!(standalone || (IOS && !UA.match(/Safari/)));
+                    this.platform = IOS ? 'ios' : ANDROID ? 'android' : 'unknown';
+
+                    // alert(`instalado: ${this.installed}, plataforma: ${this.platform}`)
+                },
+                hideInvitation(event) {
+                    let loginWrapper = document.querySelector('.login_wrapper');
+                    loginWrapper.classList.add('close-invitation');
+                
                 },
                 async login(e) {
                     e.preventDefault();
@@ -228,9 +479,13 @@
                             console.log(error)
                             alert("Datos erroneos")
                         });
+                },
+                installApp() {
+                    window.deferredPrompt.prompt()
                 }
             },
             mounted() {
+                this.detectPlatform();
                 window.localStorage.clear()
             }
 
