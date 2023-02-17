@@ -288,6 +288,14 @@
                 }
             },
             methods: {
+                carouselNextImg() {
+                    setInterval(() => {
+                        let owlDots = Array.from(document.querySelectorAll('.owl-dot'))
+
+                        let index = owlDots.findIndex(dot => dot.classList.contains('active'))
+                        owlDots[index != owlDots.length-1 ? index+1 : 0].click();
+                    }, 3000);
+                },
                 profileImageError(event) {        
                     event.target.src = this.datos.urlAvatar;
                 },
@@ -347,10 +355,8 @@
             },
             mounted() {
                 this.loadInfo();
-                // this.mountScript({
-                //     scriptDir: this.scriptDirArray,
-                //     container: document.body
-                // });
+                this.carouselNextImg()
+                
 
             },
 

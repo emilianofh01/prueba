@@ -165,13 +165,13 @@
     <!-- Service worker PWA -->
     <script src="../sw.js"></script>
     <script src="../script.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
-    <!-- Enlazar vuejs -->
-    <script src="../assets/js/jquery-3.6.1.min.js"></script>
-    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <!-- Axios -->
+    <script src="../assets/js/jquery-3.6.1.min.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="../assets/libs/bootstrap-5.2.3/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <!-- Enlazar vuejs -->
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 
     <script>
         const { createApp } = Vue
@@ -202,11 +202,8 @@
                                 'La sesión se ha finalizado',
                                 'Completado'
                             )
-                            setTimeout(() => {
                                 window.localStorage.clear()
                                 window.location.href = "../index.html"
-                            }, 1000);
-
                         }
                     })
                 },
