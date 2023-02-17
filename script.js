@@ -22,7 +22,8 @@ async function getUserData(token) {
   let res = await fetch('https://rv.devcobaja.com/api/update-info', {
     method: 'POST',
     headers: {
-      'Authorization': `Bearer ${token}`
+      'Authorization': `Bearer ${token}`,
+      'Access-Control-Allow-Origin': '*',
     }
   })
 

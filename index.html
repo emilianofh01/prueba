@@ -97,6 +97,9 @@
             animation-timing-function: ease;
             animation-delay: 0.3s;
             animation-fill-mode: both;
+
+            transition: all ease 0.2s;
+            transition-delay: 2s;
         }
 
         .login_wrapper.open-invitation::before {
@@ -105,6 +108,9 @@
             animation-timing-function: linear;
             animation-delay: 0.2s;
             animation-fill-mode: both;
+
+            transition: all ease 0.2s;
+            transition-delay: .7s;
         }
 
         /* CERRAR INVITACION */
@@ -112,17 +118,16 @@
             animation-name: hideInvitation;
             animation-duration: 0.3s;
             animation-timing-function: ease;
-            /* animation-delay: 0.6s; */
             animation-fill-mode: both;
-            /* transition: all 0.2s ease; */
         }
 
         .login_wrapper.open-invitation.close-invitation::before {
             animation-name: hideBackground;
             animation-duration: 0.2s;
             animation-timing-function: linear;
-            /* animation-delay: 0.5s; */
             animation-fill-mode: both;
+
+            height: 0;
         }
 
         .login_wrapper::before {
@@ -148,7 +153,7 @@
             margin: auto;
             z-index: 1000;
             /* transition: all ease 0.2s; */
-            /* display: var(--show-invitation); */            
+            /* display: var(--show-invitation); */
         }
 
 
@@ -166,11 +171,12 @@
         }
 
         @keyframes hideBackground {
-            
+
             0% {
                 display: block;
                 background-color: rgba(0, 0, 0, 0.5);
             }
+
             100% {
                 display: none;
                 background-color: rgba(0, 0, 0, 0);
@@ -194,6 +200,7 @@
                 display: block;
                 bottom: 20px;
             }
+
             100% {
                 display: none;
                 bottom: -100%;
@@ -245,7 +252,7 @@
             border-radius: 10px;
         }
 
-        .advertisement > button {
+        .advertisement>button {
             position: absolute;
             width: 50px;
             height: 50px;
@@ -428,7 +435,7 @@
                 hideInvitation(event) {
                     let loginWrapper = document.querySelector('.login_wrapper');
                     loginWrapper.classList.add('close-invitation');
-                
+
                 },
                 async login(e) {
                     e.preventDefault();
@@ -472,7 +479,7 @@
                                 window.localStorage.setItem('usuario', JSON.stringify(tmp_user));
                                 console.log(JSON.parse(window.localStorage.getItem('usuario')))
 
-                                window.location.href = "./views/homepage.html";
+                                // window.location.href = "./views/homepage.html";
                             }
                         })
                         .catch((error) => {
@@ -482,11 +489,31 @@
                 },
                 installApp() {
                     window.deferredPrompt.prompt()
+                },
+                async verifyAccount({ token = String }) {
+                    return await axios({
+                        method: 'post',
+                        url: 'https://rv.devcobaja.com/api/update-info',
+                        headers: {
+                            'Authorization': `Bearer ${token}`,
+                        }
+                    })
                 }
             },
-            mounted() {
+            async mounted() {
+                let user = window.localStorage.usuario;
+                if (user) {
+                    user = JSON.parse(user);
+                    if (!window.navigator.onLine && user.token) window.location.href = "./views/homepage.html";
+
+                    let { status } = await this.verifyAccount({ token: user.token });
+                    console.log(status);
+                    if (status == 200) {
+                        window.location.href = "./views/homepage.html"
+                    }
+
+                }
                 this.detectPlatform();
-                window.localStorage.clear()
             }
 
         }).mount('#app')
