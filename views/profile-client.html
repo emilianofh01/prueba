@@ -80,7 +80,7 @@
             <div class="profile-content pb-4">
                 <!-- PROFILE PIC, NAME AND DESCRIPTION -->
                 <div class="profile-info px-4">
-                    <img :src="info.profile_photo_url" style="background-color: #292222; overflow: hidden;"
+                    <img :src="info.profile_photo_url" @error="clientImageError" style="background-color: #292222; overflow: hidden;"
                         class="border-circle box-shadow-50 mb-3 object-fit-cover" alt="">
                     <h1 class="fs-24 fw-700 txtcolor-black text-center mb-2">
                         {{info.name}}
@@ -198,7 +198,7 @@
     
     <!-- JAVASCRIPT -->
     <!-- Service worker PWA -->
-    <script src="../sw.js"></script>
+    <!-- <script src="../sw.js"></script> -->
     <script src="../script.js"></script>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
@@ -225,6 +225,9 @@
                 profileImageError(event) {        
                     event.target.src = this.datos.urlAvatar;
                 },
+                clientImageError(event) {
+                    event.target.src = this.info.urlAvatar
+                },
                 loadInfo() {
                     const queryString = window.location.search;
                     const urlParams = new URLSearchParams(queryString);
@@ -241,7 +244,7 @@
                             let { profile_photo_url, name } = data;
 
                             console.log(new URLSearchParams(name))
-                            data.profile_photo_url = profile_photo_url ?? `https://ui-avatars.com/api/?name=${name}&background=292222&color=fff&size=128`
+                            data['urlAvatar'] = `https://ui-avatars.com/api/?name=${name}&background=292222&color=fff&size=128`;
                             this.info = data;
 
                             console.log(data);

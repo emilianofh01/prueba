@@ -1,7 +1,6 @@
 
 //nombre y version de cache y cache dinamica
-const staticCacheName = 'site-static-v1';
-const dynamicCacheName = 'site-dynamic';
+var version = "0.0.1b"
 const assets = [
   './',
   './script.js',
@@ -25,41 +24,37 @@ const assets = [
   './views/schedule.html',
   './views/splash.html',
   './views/start.html'
-  ]
+]
 
 //activos estaticos se almacenan en cache
 self.addEventListener('install', e => {
   e.waitUntil(
-    caches.open(staticCacheName).then(cache => {
-        console.log('caching');  
-        cache.addAll(assets)
-      })
-  );
+    caches.open(version).then(cache => {
+      console.log('caching');
+      cache.addAll(assets)
+    })
+  )
+
+  self.skipWaiting();
 });
 
 //busqueda de recursos sin conexion
 self.addEventListener('activate', e => {
-  e.waitUntil(
-    caches.keys().then(keys =>{
-      return Promise.all(keys
-        .filter(key => key !== staticCacheName)
-        .map(key=> caches.delete(key))
-      )
-    })
-  )
+  caches.keys().then(async keys => {
+    console.log("Hola");
+    return await Promise.all(keys
+      .filter(key => key !== version)
+      .map(key => caches.delete(key))
+    )
+  })
 })
 
 //cuando el navegador recupera una url
 self.addEventListener('fetch', e => {
-  //Responder ya sea con el objeto en caché o continuar y buscar la url real
+  // Responder ya sea con el objeto en caché o continuar y buscar la url real
   e.respondWith(
-    caches.match(e.request).then(cacheRes => {
-        return cacheRes || fetch(e.request).then(fetchRes =>{
-            return caches.open(dynamicCacheName).then(cache => {
-                cache.put(e.request.url, fetchRes.clone());
-                return fetchRes;
-            })
-        })
-    })
-)
+    caches.open(version)
+      .then(async cache => await cache.match(e.request))
+      .then(async res => res || await fetch(e.request))
+  )
 })

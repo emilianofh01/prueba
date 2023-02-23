@@ -20,8 +20,8 @@
     <meta name="HandheldFriendly" content="true">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="#1A1A1A">
-    <link rel="shortcut icon" type="image/png" href="./img/64x64.png">
-    <link rel="apple-touch-icon" href="../img/64x64.png">
+    <!-- <link rel="shortcut icon" type="image/png" href="./img/64x64.png"> -->
+    <!-- <link rel="apple-touch-icon" href="../img/64x64.png"> -->
     <link rel="apple-touch-startup-image" href="../img/64x64.png">
     <link rel="apple-touch-startup-image"
         media="screen and (device-width: 430px) and (device-height: 932px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)"
@@ -114,14 +114,14 @@
         }
 
         /* CERRAR INVITACION */
-        .login_wrapper.open-invitation.close-invitation .advertisement {
+        .login_wrapper.close-invitation .advertisement {
             animation-name: hideInvitation;
             animation-duration: 0.3s;
             animation-timing-function: ease;
             animation-fill-mode: both;
         }
 
-        .login_wrapper.open-invitation.close-invitation::before {
+        .login_wrapper.close-invitation::before {
             animation-name: hideBackground;
             animation-duration: 0.2s;
             animation-timing-function: linear;
@@ -375,7 +375,7 @@
 
     <!-- JAVASCRIPT -->
     <script src="script.js"></script>
-    <script src="sw.js"></script>
+    <!-- <script src="sw.js"></script> -->
     <script src="assets/libs/bootstrap-5.2.3/bootstrap.min.js"></script>
     <script src="assets/js/jquery-3.6.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
@@ -491,28 +491,31 @@
                     window.deferredPrompt.prompt()
                 },
                 async verifyAccount({ token = String }) {
-                    return await axios({
+                    let res = await axios({
                         method: 'post',
                         url: 'https://rv.devcobaja.com/api/update-info',
                         headers: {
                             'Authorization': `Bearer ${token}`,
                         }
                     })
+
+                    return res;
                 }
             },
-            async mounted() {
+            mounted() {
                 let user = window.localStorage.usuario;
                 if (user) {
                     user = JSON.parse(user);
                     if (!window.navigator.onLine && user.token) window.location.href = "./views/homepage.html";
 
-                    let { status } = await this.verifyAccount({ token: user.token });
-                    console.log(status);
-                    if (status == 200) {
+                    let res = this.verifyAccount({ token: user.token });
+                    console.log(res);
+                    if (res) {
                         window.location.href = "./views/homepage.html"
                     }
 
                 }
+
                 this.detectPlatform();
             }
 
