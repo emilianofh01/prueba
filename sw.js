@@ -1,6 +1,6 @@
 
 //nombre y version de cache y cache dinamica
-var version = "0.0.1b"
+var version = "0.0.2b"
 const assets = [
   './',
   './script.js',
