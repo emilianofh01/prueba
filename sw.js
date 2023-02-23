@@ -1,6 +1,6 @@
 
 //nombre y version de cache y cache dinamica
-var version = "0.0.2"
+var version = "0.0.1b"
 const assets = [
   './',
   './script.js',
@@ -53,8 +53,13 @@ self.addEventListener('activate', e => {
 self.addEventListener('fetch', e => {
   // Responder ya sea con el objeto en caché o continuar y buscar la url real
   e.respondWith(
-    caches.open(version)
-      .then(async cache => await cache.match(e.request))
-      .then(async res => res || await fetch(e.request))
+    caches.match(e.request).then(cacheRes => {
+      return cacheRes || fetch(e.request).then(async fetchRes => {
+        return await caches.open(version).then(cache => {
+          cache.put(e.request.url, fetchRes.clone());
+          return fetchRes;
+        })
+      })
+    })
   )
 })
