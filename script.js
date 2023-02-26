@@ -4,17 +4,15 @@ if ('serviceWorker' in navigator) {
     .catch(err => console.warn('Service worker not registered', err))
 }
 
-// Evento para llamar la instalacion de la app
-this.deferredPrompt = "";
 
+
+// Evento para llamar la invitacion de instalacion de la app
+this.deferredPrompt = "";
 window.addEventListener("beforeinstallprompt", e => {
   e.preventDefault();
   // Guardamos el evento para utilizarlo despues
   this.deferredPrompt = e;
 });
-
-
-
 
 // FUNCIONES O METODOS PARA ACTUALIZAR DESPUES DE UNA HORA, LA INFO DEL CLIENTE Y LAS
 // NOTIFICACIONES PENDIENTES.

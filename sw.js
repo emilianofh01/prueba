@@ -1,6 +1,6 @@
 
 //nombre y version de cache y cache dinamica
-var version = "0.0.1b"
+var version = "0.0.01b"
 const assets = [
   './',
   './script.js',
@@ -40,13 +40,18 @@ self.addEventListener('install', e => {
 
 //busqueda de recursos sin conexion
 self.addEventListener('activate', e => {
-  caches.keys().then(async keys => {
-    console.log("Hola");
-    return await Promise.all(keys
+  caches.keys().then(keys => {    
+    if(keys.length > 1) {
+      const channel = new BroadcastChannel('sw-messages');
+      channel.postMessage({msg: "Aplicacion actualizada"})
+    }
+
+    return Promise.all(keys
       .filter(key => key !== version)
       .map(key => caches.delete(key))
     )
   })
+  self.skipWaiting()
 })
 
 //cuando el navegador recupera una url

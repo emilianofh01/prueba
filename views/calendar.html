@@ -168,7 +168,7 @@
                             <div class="d-flex w-100 mb-2">
                                 <div class="card-date-content">
                                     <h1 class="fs-18 fw-700 text-center">{{event.title}}</h1>
-                                    <div class="d-flex mb-1">
+                                    <div class="d-flex mb-1" v-if="event.clients.length">
                                         <label>Cliente:</label>
                                         <h2 class="fst-italic fs-14 fw-400 m-0">{{event.clients[0].name}}</h2>
                                     </div>
@@ -286,13 +286,12 @@
                             'Authorization': `Bearer ${this.datos.token}`,
                         }
                     })
-
                     this.events = res.data
+                    console.log(this.events);
                 },
                 preMonth() {
                     if (!this.calendar) return;
 
-                    console.log("Atras");
                     this.calendar.preMonth();
                     this.resetCalendar();
                     this.updateDateState();
@@ -300,7 +299,6 @@
                 nextMonth() {
                     if (!this.calendar) return;
 
-                    console.log("Siguente");
                     this.calendar.nextMonth();
                     this.resetCalendar();
                     this.updateDateState();
@@ -309,7 +307,7 @@
                     let date = new Date();
                     let selectedDay = document.querySelector(".selected");
 
-                    let day = selectedDay ? selectedDay.innerHTML : '',
+                    let day = selectedDay ? String(selectedDay.innerHTML).padStart(2,0) : '',
                         month = String(this.calendar.month + 1).padStart(2, '0'),
                         year = this.calendar.year;
 
@@ -328,11 +326,11 @@
                         Array.from(days)[date.getDate() - 1].classList.add('scheduled-day');
                         Array.from(days)[date.getDate() - 1].onclick = this.updateDateState();
                     })
-
+                    console.log(filtered);
                     return filtered;
                 },
                 resetCalendar() {
-                    let days = document.querySelectorAll('td:not(#disabled)')
+                    let days = document.querySelectorAll('td')
                     Array.from(days).map(day => day.className = '');
                 },
                 selectDay(o) {
@@ -348,6 +346,7 @@
                         if (!o.target.classList.contains('selected')) {
                             o.target.classList.add('selected')
                         };
+
                         this.filterEvents()
                         return;
                     }
