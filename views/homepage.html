@@ -101,7 +101,6 @@
         padding-bottom: 0;
 
         position: relative;
-        z-index: -1;
         transition: all ease 0.5s;
     }
 
@@ -211,7 +210,7 @@
                     </div>
                 </div>
 
-                <button class="right_container-button">Aplicar actualización</button>
+                <button type="button" class="right_container-button">Aplicar actualización</button>
             </div>
         </div>
 
@@ -416,6 +415,7 @@
                     */
                     data.map(({ properties: type }) => type.map(property => property.images.length ? properties.push(property) : ''));
                     this.properties = properties;
+                    console.log(this.properties);
                 },
 
                 // Metodo para montrar algunos scripts despues de recibir datos
@@ -463,8 +463,11 @@
                     channel.addEventListener('message', ({ data }) => {
 
                         let container = document.querySelector('.reload_request_container'),
-                            banner = container.querySelector('.reload_request');
+                            banner = container.querySelector('.reload_request'),
+                            btnConfirm = banner.querySelector(".right_container-button");
                             
+                            btnConfirm.onclick = () => window.location.reload()
+
                             container.style.setProperty('--height', `${banner.clientHeight}px`)
                         this.update = true;
                     })
