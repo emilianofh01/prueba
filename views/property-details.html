@@ -197,7 +197,7 @@
                 <!-- MAPS -->
                 <div class="property-details-gallery mb-4">
                     <h2 class="ff-roboto fs-18 fw-700 txtcolor-black">Ubicación</h2>
-                    <div class="w-100 h-100" id="map" frameborder="0">
+                    <div class="w-100" style="height: 500px;" id="map" frameborder="0">
 
                     </div>
                 </div><!-- end gallery -->
@@ -350,7 +350,7 @@
                     const uluru = { lat: +this.info.mapLocation[0], lng: +this.info.mapLocation[1] };
                     // The map, centered at Uluru
                     const map = new google.maps.Map(document.getElementById("map"), {
-                        zoom: 4,
+                        zoom: 15,
                         center: uluru,
                     });
                     // The marker, positioned at Uluru
@@ -370,7 +370,8 @@
 
                     window.initMap = this.initMap;
                     this.mountScript({
-                        scriptDir: [`https://maps.googleapis.com/maps/api/js?key=${this.info.api_keys.google_maps_api_key}&callback=initMap&v=weekly`],
+                        scriptDir: [`https://maps.googleapis.com/maps/api/js?key=AIzaSyB41DRUbKWJHPxaFjMAwdrzWzbVKartNGg&callback=initMap&v=weekly`],
+                        // scriptDir: [`https://maps.googleapis.com/maps/api/js?key=${this.info.api_keys.google_maps_api_key}&callback=initMap&v=weekly`],
                         container: document.body
                     })
                 },
